@@ -17,7 +17,7 @@
 A continuación se presenta el esquema del modelo de datos correspondiente a la aplicación según la narrativa del sistema
 
 ### Diagrama Entidad-Relación (DER)
-erDiagram
+
     PROPIETARIO ||--o{ INMUEBLE : posee<br>
     TIPO_INMUEBLE ||--o{ INMUEBLE : clasifica<br>
     INQUILINO ||--o{ RESERVA : solicita<br>
