@@ -18,13 +18,13 @@ A continuación se presenta el esquema del modelo de datos correspondiente a la 
 
 ### Diagrama Entidad-Relación (DER)
 erDiagram
-    PROPIETARIO ||--o{ INMUEBLE : posee
-    TIPO_INMUEBLE ||--o{ INMUEBLE : clasifica
-    INQUILINO ||--o{ RESERVA : solicita
-    INMUEBLE ||--o{ RESERVA : incluye
-    RESERVA ||--o{ PAGO : genera
-    USUARIO ||--o{ RESERVA : gestiona
-    USUARIO ||--o{ PAGO : registra
+    PROPIETARIO ||--o{ INMUEBLE : posee<br>
+    TIPO_INMUEBLE ||--o{ INMUEBLE : clasifica<br>
+    INQUILINO ||--o{ RESERVA : solicita<br>
+    INMUEBLE ||--o{ RESERVA : incluye<br>
+    RESERVA ||--o{ PAGO : genera<br>
+    USUARIO ||--o{ RESERVA : gestiona<br>
+    USUARIO ||--o{ PAGO : registra<br>
 
     PROPIETARIO {
         int id PK
