@@ -1,0 +1,115 @@
+@model PagoReservaViewModel
+
+@{
+    ViewData["Title"] = "Pagos de la Reserva";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="h3 mb-0 text-gray-800">
+            <i class="bi bi-cash-coin text-primary me-2"></i>Pagos de la Reserva #@Model.Reserva.Id
+        </h2>
+        <small class="text-muted">@Model.Reserva.Inmueble?.Direccion — @Model.Reserva.Inquilino?.NombreCompleto</small>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-controller="Reservas" asp-action="Details" asp-route-id="@Model.Reserva.Id" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>Volver a la Reserva
+        </a>
+        <a asp-action="Create" asp-route-reservaId="@Model.Reserva.Id" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-1"></i>Nuevo Pago
+        </a>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small text-uppercase">Total de la Reserva</div>
+                <div class="fs-4 fw-bold">$@Model.TotalReserva.ToString("N2")</div>
+                <div class="small text-muted">@Model.Dias días × $@Model.Reserva.MontoDiario.ToString("N2")@(Model.Reserva.Multa.HasValue ? $" + multa ${Model.Reserva.Multa.Value.ToString("N2")}" : "")</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small text-uppercase">Total Pagado</div>
+                <div class="fs-4 fw-bold text-success">$@Model.TotalPagado.ToString("N2")</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small text-uppercase">Saldo Pendiente</div>
+                <div class="fs-4 fw-bold @(Model.Saldo > 0 ? "text-danger" : "text-success")">$@Model.Saldo.ToString("N2")</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 80px;">Código</th>
+                    <th scope="col" style="width: 160px;">Fecha</th>
+                    <th scope="col">Concepto</th>
+                    <th scope="col" class="text-end" style="width: 130px;">Importe</th>
+                    <th scope="col">Registrado por</th>
+                    <th scope="col" class="text-center" style="width: 110px;">Estado</th>
+                    <th scope="col" class="text-end" style="width: 120px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Pagos.Any())
+                {
+                    foreach (var pago in Model.Pagos)
+                    {
+                        <tr class="@(pago.Anulado ? "table-secondary text-muted" : "")">
+                            <td class="fw-semibold">#@pago.Id</td>
+                            <td>@pago.FechaPago.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@pago.Concepto</td>
+                            <td class="text-end @(pago.Anulado ? "text-decoration-line-through" : "")">$@pago.Importe.ToString("N2")</td>
+                            <td>@pago.UsuarioCreador?.Nombre @pago.UsuarioCreador?.Apellido</td>
+                            <td class="text-center">
+                                @if (pago.Anulado)
+                                {
+                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle">Anulado</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle">Vigente</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                @if (!pago.Anulado)
+                                {
+                                    <form asp-action="Anular" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@pago.Id" />
+                                        <input type="hidden" name="reservaId" value="@Model.Reserva.Id" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Anular pago"
+                                                onclick="return confirm('¿Anular este pago?');">
+                                            <i class="bi bi-slash-circle"></i> Anular
+                                        </button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+                            No hay pagos registrados para esta reserva.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+@model Usuario
+
+@{
+    ViewData["Title"] = "Detalle de Usuario";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header py-3">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-person-badge me-2"></i>Usuario #@Model.Id
+                </h5>
+            </div>
+            <div class="card-body p-4">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">Nombre completo</dt>
+                    <dd class="col-sm-8">@Model.Nombre @Model.Apellido</dd>
+
+                    <dt class="col-sm-4">Correo Electrónico</dt>
+                    <dd class="col-sm-8">@Model.Email</dd>
+
+                    <dt class="col-sm-4">Rol</dt>
+                    <dd class="col-sm-8">@Model.Rol</dd>
+
+                    <dt class="col-sm-4">Avatar</dt>
+                    <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.Avatar) ? "—" : Model.Avatar)</dd>
+
+                    <dt class="col-sm-4">Estado</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.Estado)
+                        {
+                            <span class="badge bg-success-subtle text-success border border-success-subtle">Activo</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle">Inactivo</span>
+                        }
+                    </dd>
+                </dl>
+
+                <div class="d-flex justify-content-between pt-3 mt-3 border-top">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i>Volver al Listado
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                        <i class="bi bi-pencil me-1"></i>Editar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+@model RenovarReservaViewModel
+
+@{
+    ViewData["Title"] = "Renovar Reserva";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header py-3">
+                <h5 class="mb-0"><i class="bi bi-arrow-repeat me-2"></i>Renovar Reserva #@Model.Id</h5>
+            </div>
+            <div class="card-body p-4">
+                <dl class="row mb-4">
+                    <dt class="col-sm-5">Inmueble</dt>
+                    <dd class="col-sm-7">@Model.InmuebleDescripcion</dd>
+
+                    <dt class="col-sm-5">Inquilino</dt>
+                    <dd class="col-sm-7">@Model.InquilinoNombre</dd>
+
+                    <dt class="col-sm-5">Fecha de Inicio</dt>
+                    <dd class="col-sm-7">@Model.FechaInicio.ToString("dd/MM/yyyy")</dd>
+
+                    <dt class="col-sm-5">Fecha de Fin Actual</dt>
+                    <dd class="col-sm-7 fw-bold">@Model.FechaFinActual.ToString("dd/MM/yyyy")</dd>
+
+                    <dt class="col-sm-5">Monto Diario</dt>
+                    <dd class="col-sm-7">$@Model.MontoDiario.ToString("N2")</dd>
+                </dl>
+
+                <form asp-action="Renovar" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <div class="mb-4">
+                        <label asp-for="NuevaFechaFin" class="form-label fw-bold"></label>
+                        <input asp-for="NuevaFechaFin" type="date" class="form-control"
+                               min="@Model.FechaFinActual.AddDays(1).ToString("yyyy-MM-dd")" />
+                        <span asp-validation-for="NuevaFechaFin" class="text-danger small"></span>
+                        <div class="form-text">Debe ser posterior a la fecha de fin actual y no superponerse con otra reserva del inmueble.</div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-lg me-1"></i>Renovar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

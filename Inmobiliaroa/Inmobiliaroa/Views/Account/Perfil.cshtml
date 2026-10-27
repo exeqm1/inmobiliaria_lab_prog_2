@@ -1,0 +1,64 @@
+@model Usuario
+
+@{
+    ViewData["Title"] = "Mi Perfil";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-9 col-lg-7">
+        <div class="card">
+            <div class="card-header py-3">
+                <h4 class="mb-0"><i class="bi bi-person-circle me-2"></i>Mi Perfil</h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-4">
+                    @if (!string.IsNullOrWhiteSpace(Model.Avatar))
+                    {
+                        <img src="@Model.Avatar" alt="Avatar" class="rounded-circle border me-3 avatar-96" />
+                    }
+                    else
+                    {
+                        <div class="rounded-circle bg-secondary-subtle text-secondary d-flex align-items-center justify-content-center me-3 avatar-96">
+                            <i class="bi bi-person fs-1"></i>
+                        </div>
+                    }
+                    <div>
+                        <h3 class="h4 mb-1">@Model.Nombre @Model.Apellido</h3>
+                        <div>
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
+                                <i class="bi bi-shield-check me-1"></i>@Model.Rol
+                            </span>
+                            @if (Model.Estado)
+                            {
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">Activo</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle">Inactivo</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <dl class="row mb-4">
+                    <dt class="col-sm-4 text-muted">Correo Electrónico</dt>
+                    <dd class="col-sm-8">@Model.Email</dd>
+                    <dt class="col-sm-4 text-muted">Código de Usuario</dt>
+                    <dd class="col-sm-8">#@Model.Id</dd>
+                </dl>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <a asp-action="EditarDatos" class="btn btn-primary">
+                        <i class="bi bi-pencil-square me-1"></i>Editar Datos
+                    </a>
+                    <a asp-action="CambiarClave" class="btn btn-outline-secondary">
+                        <i class="bi bi-key me-1"></i>Cambiar Contraseña
+                    </a>
+                    <a asp-action="CambiarAvatar" class="btn btn-outline-secondary">
+                        <i class="bi bi-image me-1"></i>Cambiar Foto
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+@model PaginacionResultado<Reserva>
+
+@{
+    ViewData["Title"] = "Reservas";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="h3 mb-0 text-gray-800">
+            <i class="bi bi-calendar-check text-primary me-2"></i>Reservas
+        </h2>
+        <small class="text-muted">Total registradas: @Model.TotalElementos</small>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i>Nueva Reserva
+    </a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body py-2">
+        <form asp-action="Index" method="get" class="row g-2 align-items-center">
+            <input type="hidden" name="pagina" value="1" />
+            <div class="col-md-9 col-sm-8">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search text-muted"></i></span>
+                    <input type="text" name="busqueda" value="@Model.CriterioBusqueda"
+                           class="form-control" placeholder="Buscar por inmueble o inquilino..." />
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 d-flex gap-2">
+                <button type="submit" class="btn btn-dark w-100">
+                    <i class="bi bi-funnel me-1"></i>Filtrar
+                </button>
+                @if (!string.IsNullOrWhiteSpace(Model.CriterioBusqueda))
+                {
+                    <a asp-action="Index" class="btn btn-outline-secondary" title="Limpiar filtro">
+                        <i class="bi bi-x-lg"></i>
+                    </a>
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 80px;">Código</th>
+                    <th scope="col">Inmueble</th>
+                    <th scope="col">Inquilino</th>
+                    <th scope="col" style="width: 120px;">Desde</th>
+                    <th scope="col" style="width: 120px;">Hasta</th>
+                    <th scope="col" class="text-end" style="width: 120px;">Monto/Día</th>
+                    <th scope="col" class="text-end" style="width: 130px;">Total</th>
+                    <th scope="col" class="text-end" style="width: 160px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Elementos.Any())
+                {
+                    foreach (var item in Model.Elementos)
+                    {
+                        int dias = (item.FechaFin - item.FechaInicio).Days;
+                        <tr>
+                            <td class="fw-semibold">#@item.Id</td>
+                            <td>@item.Inmueble?.Direccion</td>
+                            <td>@item.Inquilino?.NombreCompleto</td>
+                            <td>@item.FechaInicio.ToString("dd/MM/yyyy")</td>
+                            <td>@item.FechaFin.ToString("dd/MM/yyyy")</td>
+                            <td class="text-end">$@item.MontoDiario.ToString("N2")</td>
+                            <td class="text-end fw-semibold">$@((dias * item.MontoDiario).ToString("N2"))</td>
+                            <td class="text-end">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary" title="Ver detalles">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Dar de baja">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+                            No se encontraron reservas @(!string.IsNullOrEmpty(Model.CriterioBusqueda) ? "con ese criterio de búsqueda" : "").
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (Model.TotalPaginas > 1)
+    {
+        <div class="card-footer d-flex justify-content-between align-items-center py-3">
+            <span class="text-muted small">Página @Model.PaginaActual de @Model.TotalPaginas</span>
+            <nav aria-label="Navegación de páginas">
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item @(!Model.TienePaginaAnterior ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pagina="@(Model.PaginaActual - 1)" asp-route-busqueda="@Model.CriterioBusqueda">
+                            <i class="bi bi-chevron-left"></i> Anterior
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPaginas; i++)
+                    {
+                        <li class="page-item @(i == Model.PaginaActual ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-pagina="@i" asp-route-busqueda="@Model.CriterioBusqueda">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(!Model.TienePaginaSiguiente ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pagina="@(Model.PaginaActual + 1)" asp-route-busqueda="@Model.CriterioBusqueda">
+                            Siguiente <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+</div>

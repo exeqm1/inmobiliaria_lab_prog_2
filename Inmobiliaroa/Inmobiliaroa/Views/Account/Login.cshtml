@@ -1,0 +1,56 @@
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card">
+            <div class="card-header text-center py-3">
+                <h4 class="mb-0"><i class="bi bi-shield-lock me-2"></i>Iniciar Sesión</h4>
+            </div>
+            <div class="card-body p-4">
+                <form asp-controller="Account" asp-action="Login" method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label fw-bold"></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input asp-for="Email" class="form-control" placeholder="usuario@inmobiliaria.com" autofocus />
+                        </div>
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label fw-bold"></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-key"></i></span>
+                            <input asp-for="Password" class="form-control" placeholder="Contraseña" />
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input asp-for="Recordarme" class="form-check-input" />
+                        <label asp-for="Recordarme" class="form-check-label"></label>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-dark btn-lg">
+                            <i class="bi bi-box-arrow-in-right me-1"></i>Ingresar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <p class="text-center text-muted small mt-3">
+            Demo: admin@inmobiliaria.com / admin123 &middot; empleado@inmobiliaria.com / empleado123
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

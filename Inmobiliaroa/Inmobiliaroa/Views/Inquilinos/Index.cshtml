@@ -1,0 +1,155 @@
+@model PaginacionResultado<Inquilino>
+
+@{
+    ViewData["Title"] = "Gestión de Inquilinos";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="h3 mb-0 text-gray-800">
+            <i class="bi bi-people text-primary me-2"></i>Inquilinos
+        </h2>
+        <small class="text-muted">Total registrados: @Model.TotalElementos</small>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-person-plus-fill me-1"></i>Nuevo Inquilino
+    </a>
+</div>
+
+<!-- Filtro de Búsqueda por Servidor -->
+<div class="card mb-4">
+    <div class="card-body py-2">
+        <form asp-action="Index" method="get" class="row g-2 align-items-center">
+            <input type="hidden" name="pagina" value="1" />
+            <div class="col-md-9 col-sm-8">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search text-muted"></i></span>
+                    <input type="text" name="busqueda" value="@Model.CriterioBusqueda" 
+                           class="form-control" placeholder="Buscar por DNI, Apellido, Nombre o Email..." />
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 d-flex gap-2">
+                <button type="submit" class="btn btn-dark w-100">
+                    <i class="bi bi-funnel me-1"></i>Filtrar
+                </button>
+                @if (!string.IsNullOrWhiteSpace(Model.CriterioBusqueda))
+                {
+                    <a asp-action="Index" class="btn btn-outline-secondary" title="Limpiar filtro">
+                        <i class="bi bi-x-lg"></i>
+                    </a>
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Tabla de Resultados -->
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 120px;">DNI</th>
+                    <th scope="col">Nombre y Apellido</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Email</th>
+                    <th scope="col" class="text-center" style="width: 100px;">Estado</th>
+                    <th scope="col" class="text-end" style="width: 160px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Elementos.Any())
+                {
+                    foreach (var item in Model.Elementos)
+                    {
+                        <tr>
+                            <td class="fw-semibold">@item.Dni</td>
+                            <td>@item.NombreCompleto</td>
+                            <td>
+                                <a href="tel:@item.Telefono" class="text-decoration-none text-secondary">
+                                    <i class="bi bi-telephone me-1"></i>@item.Telefono
+                                </a>
+                            </td>
+                            <td>
+                                <a href="mailto:@item.Email" class="text-decoration-none text-secondary">
+                                    <i class="bi bi-envelope me-1"></i>@item.Email
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                @if (item.Estado)
+                                {
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle">Activo</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle">Inactivo</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary" title="Ver detalles">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Dar de baja">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+                            No se encontraron inquilinos registrados @(!string.IsNullOrEmpty(Model.CriterioBusqueda) ? "con ese criterio de búsqueda" : "").
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Paginación por Servidor -->
+    @if (Model.TotalPaginas > 1)
+    {
+        <div class="card-footer d-flex justify-content-between align-items-center py-3">
+            <span class="text-muted small">
+                Página @Model.PaginaActual de @Model.TotalPaginas
+            </span>
+            <nav aria-label="Navegación de páginas">
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item @(!Model.TienePaginaAnterior ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" 
+                           asp-route-pagina="@(Model.PaginaActual - 1)" 
+                           asp-route-busqueda="@Model.CriterioBusqueda">
+                            <i class="bi bi-chevron-left"></i> Anterior
+                        </a>
+                    </li>
+
+                    @for (int i = 1; i <= Model.TotalPaginas; i++)
+                    {
+                        <li class="page-item @(i == Model.PaginaActual ? "active" : "")">
+                            <a class="page-link" asp-action="Index" 
+                               asp-route-pagina="@i" 
+                               asp-route-busqueda="@Model.CriterioBusqueda">@i</a>
+                        </li>
+                    }
+
+                    <li class="page-item @(!Model.TienePaginaSiguiente ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" 
+                           asp-route-pagina="@(Model.PaginaActual + 1)" 
+                           asp-route-busqueda="@Model.CriterioBusqueda">
+                            Siguiente <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+</div>
+

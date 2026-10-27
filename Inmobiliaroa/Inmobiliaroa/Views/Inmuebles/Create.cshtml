@@ -1,0 +1,109 @@
+@model InmuebleFormViewModel
+
+@{
+    ViewData["Title"] = "Nuevo Inmueble";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-building-add me-2"></i>Registrar Inmueble
+                </h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label asp-for="Direccion" class="form-label fw-bold"></label>
+                            <input asp-for="Direccion" class="form-control" placeholder="Calle, número, localidad" autofocus />
+                            <span asp-validation-for="Direccion" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Cupo" class="form-label fw-bold"></label>
+                            <input asp-for="Cupo" class="form-control" />
+                            <span asp-validation-for="Cupo" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="TipoId" class="form-label fw-bold"></label>
+                            <select asp-for="TipoId" asp-items="ViewBag.Tipos" class="form-select">
+                                <option value="">-- Seleccione un tipo --</option>
+                            </select>
+                            <span asp-validation-for="TipoId" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="PropietarioId" class="form-label fw-bold"></label>
+                            <select asp-for="PropietarioId" asp-items="ViewBag.Propietarios" class="form-select">
+                                <option value="">-- Seleccione un propietario --</option>
+                            </select>
+                            <span asp-validation-for="PropietarioId" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="PrecioDia" class="form-label fw-bold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input asp-for="PrecioDia" class="form-control" />
+                            </div>
+                            <span asp-validation-for="PrecioDia" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="PorcentajeReserva" class="form-label fw-bold"></label>
+                            <div class="input-group">
+                                <input asp-for="PorcentajeReserva" class="form-control" />
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <span asp-validation-for="PorcentajeReserva" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Coordenadas" class="form-label fw-bold"></label>
+                            <input asp-for="Coordenadas" class="form-control" placeholder="lat,lng" />
+                            <span asp-validation-for="Coordenadas" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input asp-for="Disponible" class="form-check-input" />
+                        <label asp-for="Disponible" class="form-check-label"></label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="PortadaArchivo" class="form-label fw-bold"></label>
+                            <input asp-for="PortadaArchivo" type="file" accept="image/*" class="form-control" />
+                            <div class="form-text">JPG, JPEG, PNG o WEBP. Máximo 5 MB.</div>
+                            <span asp-validation-for="PortadaArchivo" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FotosArchivos" class="form-label fw-bold"></label>
+                            <input asp-for="FotosArchivos" type="file" accept="image/*" multiple class="form-control" />
+                            <div class="form-text">Podés seleccionar varias imágenes.</div>
+                            <span asp-validation-for="FotosArchivos" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between pt-2 border-top">
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Volver al Listado
+                        </a>
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-save me-1"></i>Guardar Inmueble
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

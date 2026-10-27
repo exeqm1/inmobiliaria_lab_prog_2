@@ -1,0 +1,54 @@
+@model CambiarAvatarViewModel
+
+@{
+    ViewData["Title"] = "Cambiar Foto de Perfil";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+        <div class="card">
+            <div class="card-header py-3">
+                <h4 class="mb-0"><i class="bi bi-image me-2"></i>Cambiar Foto de Perfil</h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    @if (!string.IsNullOrWhiteSpace(Model.Avatar))
+                    {
+                        <img src="@Model.Avatar" alt="Avatar" class="rounded-circle border avatar-120" />
+                    }
+                    else
+                    {
+                        <div class="rounded-circle bg-secondary-subtle text-secondary d-flex align-items-center justify-content-center mx-auto avatar-120">
+                            <i class="bi bi-person fs-1"></i>
+                        </div>
+                    }
+                </div>
+
+                <form asp-action="CambiarAvatar" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Archivo" class="form-label fw-bold"></label>
+                        <input asp-for="Archivo" type="file" accept=".jpg,.jpeg,.png,.webp" class="form-control" />
+                        <span asp-validation-for="Archivo" class="text-danger small"></span>
+                        <div class="form-text">Formatos: JPG, JPEG, PNG o WEBP. Tamaño máximo: 5 MB.</div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Perfil" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-upload me-1"></i>Subir Foto
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

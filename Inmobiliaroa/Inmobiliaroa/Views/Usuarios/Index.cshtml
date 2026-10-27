@@ -1,0 +1,89 @@
+@model List<Usuario>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="h3 mb-0 text-gray-800">
+            <i class="bi bi-person-gear text-primary me-2"></i>Usuarios
+        </h2>
+        <small class="text-muted">Total registrados: @Model.Count</small>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i>Nuevo Usuario
+    </a>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 100px;">Código</th>
+                    <th scope="col">Nombre y Apellido</th>
+                    <th scope="col">Correo Electrónico</th>
+                    <th scope="col" class="text-center" style="width: 140px;">Rol</th>
+                    <th scope="col" class="text-center" style="width: 100px;">Estado</th>
+                    <th scope="col" class="text-end" style="width: 160px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-semibold">#@item.Id</td>
+                            <td>@item.Nombre @item.Apellido</td>
+                            <td>@item.Email</td>
+                            <td class="text-center">
+                                @if (item.Rol == "Administrador")
+                                {
+                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle">Administrador</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle">@item.Rol</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (item.Estado)
+                                {
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle">Activo</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle">Inactivo</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary" title="Ver detalles">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Dar de baja">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+                            No hay usuarios registrados.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

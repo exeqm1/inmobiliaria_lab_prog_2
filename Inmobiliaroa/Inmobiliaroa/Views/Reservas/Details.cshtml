@@ -1,0 +1,89 @@
+@model Reserva
+
+@{
+    ViewData["Title"] = "Detalle de Reserva";
+    int dias = (Model.FechaFin - Model.FechaInicio).Days;
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-9 col-lg-7">
+        <div class="card">
+            <div class="card-header py-3">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-calendar-check me-2"></i>Reserva #@Model.Id
+                </h5>
+            </div>
+            <div class="card-body p-4">
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">Inmueble</dt>
+                    <dd class="col-sm-7">@Model.Inmueble?.Direccion</dd>
+
+                    <dt class="col-sm-5">Inquilino</dt>
+                    <dd class="col-sm-7">@Model.Inquilino?.NombreCompleto</dd>
+
+                    <dt class="col-sm-5">Fecha de Inicio</dt>
+                    <dd class="col-sm-7">@Model.FechaInicio.ToString("dd/MM/yyyy")</dd>
+
+                    <dt class="col-sm-5">Fecha de Fin</dt>
+                    <dd class="col-sm-7">@Model.FechaFin.ToString("dd/MM/yyyy")</dd>
+
+                    <dt class="col-sm-5">Cantidad de Días</dt>
+                    <dd class="col-sm-7">@dias</dd>
+
+                    <dt class="col-sm-5">Monto Diario</dt>
+                    <dd class="col-sm-7">$@Model.MontoDiario.ToString("N2")</dd>
+
+                    <dt class="col-sm-5">Total Estimado</dt>
+                    <dd class="col-sm-7 fw-bold">$@((dias * Model.MontoDiario).ToString("N2"))</dd>
+
+                    <dt class="col-sm-5">Registrada por</dt>
+                    <dd class="col-sm-7">@Model.UsuarioCreador?.Nombre @Model.UsuarioCreador?.Apellido</dd>
+
+                    @if (Model.FechaFinEfectiva.HasValue)
+                    {
+                        <dt class="col-sm-5">Fin Efectivo (rescisión)</dt>
+                        <dd class="col-sm-7">@Model.FechaFinEfectiva.Value.ToString("dd/MM/yyyy")</dd>
+
+                        <dt class="col-sm-5">Multa</dt>
+                        <dd class="col-sm-7">$@((Model.Multa ?? 0).ToString("N2"))</dd>
+                    }
+
+                    <dt class="col-sm-5">Estado</dt>
+                    <dd class="col-sm-7">
+                        @if (Model.Estado)
+                        {
+                            <span class="badge bg-success-subtle text-success border border-success-subtle">Activa</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle">Inactiva</span>
+                        }
+                    </dd>
+                </dl>
+
+                <div class="d-flex justify-content-between pt-3 mt-3 border-top">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i>Volver al Listado
+                    </a>
+                    <div class="d-flex gap-2">
+                        <a asp-controller="Pagos" asp-action="Index" asp-route-reservaId="@Model.Id" class="btn btn-outline-success">
+                            <i class="bi bi-cash-coin me-1"></i>Pagos
+                        </a>
+                        @if (!Model.FechaFinEfectiva.HasValue)
+                        {
+                            <a asp-action="Renovar" asp-route-id="@Model.Id" class="btn btn-outline-primary">
+                                <i class="bi bi-arrow-repeat me-1"></i>Renovar
+                            </a>
+                            <a asp-action="Rescindir" asp-route-id="@Model.Id" class="btn btn-outline-warning">
+                                <i class="bi bi-scissors me-1"></i>Rescindir
+                            </a>
+                        }
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                            <i class="bi bi-pencil me-1"></i>Editar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

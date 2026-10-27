@@ -1,0 +1,51 @@
+@model CambiarClaveViewModel
+
+@{
+    ViewData["Title"] = "Cambiar Contraseña";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+        <div class="card">
+            <div class="card-header py-3">
+                <h4 class="mb-0"><i class="bi bi-key me-2"></i>Cambiar Contraseña</h4>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="CambiarClave" method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="ClaveActual" class="form-label fw-bold"></label>
+                        <input asp-for="ClaveActual" class="form-control" autofocus />
+                        <span asp-validation-for="ClaveActual" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ClaveNueva" class="form-label fw-bold"></label>
+                        <input asp-for="ClaveNueva" class="form-control" />
+                        <span asp-validation-for="ClaveNueva" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="ConfirmarClave" class="form-label fw-bold"></label>
+                        <input asp-for="ConfirmarClave" class="form-control" />
+                        <span asp-validation-for="ConfirmarClave" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Perfil" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-lg me-1"></i>Cambiar Contraseña
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

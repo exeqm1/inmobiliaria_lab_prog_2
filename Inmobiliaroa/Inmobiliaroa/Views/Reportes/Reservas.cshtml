@@ -1,0 +1,127 @@
+@model ReporteReservasViewModel
+
+@{
+    ViewData["Title"] = "Reporte de Reservas";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="h3 mb-0 text-gray-800">
+            <i class="bi bi-calendar-range text-primary me-2"></i>Reporte de Reservas
+        </h2>
+        <small class="text-muted">Reservas con inicio entre @Model.Desde.ToString("dd/MM/yyyy") y @Model.Hasta.ToString("dd/MM/yyyy")</small>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Volver al Panel
+    </a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form asp-action="Reservas" method="get" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label for="desde" class="form-label fw-semibold">Desde</label>
+                <input type="date" id="desde" name="desde" class="form-control" value="@Model.Desde.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="col-md-4">
+                <label for="hasta" class="form-label fw-semibold">Hasta</label>
+                <input type="date" id="hasta" name="hasta" class="form-control" value="@Model.Hasta.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-funnel me-1"></i>Generar
+                </button>
+                <a asp-action="Reservas" class="btn btn-outline-secondary">
+                    <i class="bi bi-x-circle me-1"></i>Limpiar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small text-uppercase">Reservas</div>
+                <div class="fs-4 fw-bold">@Model.Cantidad</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small text-uppercase">Total Facturado</div>
+                <div class="fs-4 fw-bold text-primary">$@Model.TotalFacturado.ToString("N2")</div>
+                <div class="small text-muted">Multas: $@Model.TotalMultas.ToString("N2")</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small text-uppercase">Total Cobrado</div>
+                <div class="fs-4 fw-bold text-success">$@Model.TotalCobrado.ToString("N2")</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small text-uppercase">Saldo Pendiente</div>
+                <div class="fs-4 fw-bold @(Model.TotalSaldo > 0 ? "text-danger" : "text-success")">$@Model.TotalSaldo.ToString("N2")</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 70px;">Código</th>
+                    <th scope="col">Inmueble</th>
+                    <th scope="col">Inquilino</th>
+                    <th scope="col" class="text-center">Periodo</th>
+                    <th scope="col" class="text-end" style="width: 120px;">Total</th>
+                    <th scope="col" class="text-end" style="width: 120px;">Cobrado</th>
+                    <th scope="col" class="text-end" style="width: 120px;">Saldo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Reservas.Any())
+                {
+                    foreach (var item in Model.Reservas)
+                    {
+                        <tr>
+                            <td class="fw-semibold">
+                                <a asp-controller="Reservas" asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none">#@item.Id</a>
+                            </td>
+                            <td>@item.Inmueble</td>
+                            <td>@item.Inquilino</td>
+                            <td class="text-center">
+                                @item.FechaInicio.ToString("dd/MM/yyyy") - @(item.FechaFinEfectiva ?? item.FechaFin).ToString("dd/MM/yyyy")
+                                @if (item.Rescindida)
+                                {
+                                    <i class="bi bi-scissors text-warning ms-1" title="Rescindida anticipadamente"></i>
+                                }
+                            </td>
+                            <td class="text-end">$@item.Total.ToString("N2")</td>
+                            <td class="text-end text-success">$@item.TotalPagado.ToString("N2")</td>
+                            <td class="text-end @(item.Saldo > 0 ? "text-danger" : "text-success")">$@item.Saldo.ToString("N2")</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox fs-3 d-block mb-2"></i>No hay reservas en el rango seleccionado.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

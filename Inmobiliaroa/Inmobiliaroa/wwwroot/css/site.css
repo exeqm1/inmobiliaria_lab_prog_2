@@ -1,0 +1,642 @@
+/* =========================================================
+   Roboto Mono (self-host)
+   ========================================================= */
+@font-face {
+    font-family: "Roboto Mono";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("../fonts/roboto-mono-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Roboto Mono";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("../fonts/roboto-mono-latin-500-normal.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Roboto Mono";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("../fonts/roboto-mono-latin-700-normal.woff2") format("woff2");
+}
+
+/* =========================================================
+   Tokens
+   ========================================================= */
+:root {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --surface-hover: #f5f5f5;
+    --border: #e5e5e5;
+    --border-strong: #d4d4d4;
+    --text: #111111;
+    --muted: #6b7280;
+    --accent: #111111;
+    --link: #2563eb;
+    --success: #15803d;
+    --success-bg: #f0fdf4;
+    --success-border: #bbf7d0;
+    --warning: #b45309;
+    --warning-bg: #fffbeb;
+    --warning-border: #fde68a;
+    --danger: #b91c1c;
+    --danger-bg: #fef2f2;
+    --danger-border: #fecaca;
+    --info: #1d4ed8;
+    --info-bg: #eff6ff;
+    --info-border: #bfdbfe;
+    --radius: 8px;
+    --radius-sm: 6px;
+
+    --bs-body-font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --bs-body-bg: var(--bg);
+    --bs-body-color: var(--text);
+    --bs-border-color: var(--border);
+    --bs-primary: var(--accent);
+    --bs-link-color: var(--link);
+}
+
+/* Regla del sistema: sin sombras ni gradientes */
+*,
+*::before,
+*::after {
+    box-shadow: none !important;
+}
+
+/* =========================================================
+   Base
+   ========================================================= */
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background-color: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text);
+}
+
+small,
+.small {
+    font-size: 0.75rem;
+}
+
+a {
+    color: var(--link);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--link);
+    text-decoration: underline;
+}
+
+.text-muted {
+    color: var(--muted) !important;
+}
+
+.text-gray-800 {
+    color: var(--text) !important;
+}
+
+.text-primary {
+    color: var(--text) !important;
+}
+
+.border-danger {
+    border-color: var(--danger-border) !important;
+}
+
+::selection {
+    background: #dbeafe;
+    color: var(--text);
+}
+
+:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   Navbar
+   ========================================================= */
+.navbar {
+    background-color: var(--surface) !important;
+    border-bottom: 1px solid var(--border);
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+}
+
+.navbar-brand {
+    color: var(--text) !important;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.navbar-brand:hover {
+    color: var(--text) !important;
+    text-decoration: none;
+}
+
+.navbar .nav-link {
+    color: var(--muted) !important;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding: 0.4rem 0.65rem !important;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.navbar .nav-link:hover {
+    color: var(--text) !important;
+    background-color: var(--surface-hover);
+    text-decoration: none;
+}
+
+.navbar .nav-link.active {
+    color: var(--text) !important;
+    background-color: var(--surface-hover);
+}
+
+.navbar-toggler {
+    border-color: var(--border);
+    padding: 0.25rem 0.5rem;
+}
+
+.navbar-toggler:focus {
+    outline: 2px solid var(--text);
+}
+
+/* =========================================================
+   Cards
+   ========================================================= */
+.card {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.card-header {
+    background-color: var(--surface) !important;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+}
+
+.card-footer {
+    background-color: var(--surface) !important;
+    border-top: 1px solid var(--border);
+}
+
+.card-body {
+    color: var(--text);
+}
+
+/* =========================================================
+   Botones
+   ========================================================= */
+.btn {
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding: 0.45rem 0.85rem;
+    transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+.btn-lg {
+    font-size: 0.875rem;
+    padding: 0.6rem 1rem;
+}
+
+.btn-sm {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.55rem;
+}
+
+.btn-primary,
+.btn-dark {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-dark:hover,
+.btn-dark:active {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.btn-outline-primary {
+    background-color: var(--surface);
+    border-color: var(--border-strong);
+    color: var(--text);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active {
+    background-color: var(--surface-hover);
+    border-color: var(--text);
+    color: var(--text);
+}
+
+.btn-outline-secondary {
+    background-color: var(--surface);
+    border-color: var(--border);
+    color: var(--muted);
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:active {
+    background-color: var(--surface-hover);
+    border-color: var(--border-strong);
+    color: var(--text);
+}
+
+.btn-outline-danger {
+    background-color: var(--surface);
+    border-color: var(--danger-border);
+    color: var(--danger);
+}
+
+.btn-outline-danger:hover,
+.btn-outline-danger:active {
+    background-color: var(--danger-bg);
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+.btn-danger {
+    background-color: var(--danger) !important;
+    border-color: var(--danger) !important;
+    color: #ffffff !important;
+}
+
+.btn-link {
+    color: var(--link);
+    text-decoration: none;
+}
+
+.d-flex.justify-content-between.pt-3.mt-4.border-top .btn,
+.card-footer .btn {
+    text-decoration: none;
+}
+
+/* =========================================================
+   Formularios
+   ========================================================= */
+.form-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+}
+
+.form-control,
+.form-select {
+    background-color: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-size: 0.8125rem;
+    padding: 0.45rem 0.65rem;
+}
+
+.form-control::placeholder {
+    color: #9ca3af;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--text);
+    outline: 2px solid rgba(17, 17, 17, 0.12);
+    outline-offset: 0;
+}
+
+.form-check-input {
+    border-color: var(--border-strong);
+}
+
+.form-check-input:checked {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.input-group-text {
+    background-color: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+}
+
+.validation-summary-errors ul {
+    margin-bottom: 0;
+    padding-left: 1.1rem;
+}
+
+.field-validation-error {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--danger);
+}
+
+/* =========================================================
+   Tablas
+   ========================================================= */
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--text);
+    color: var(--text);
+    font-size: 0.8125rem;
+    border-color: var(--border);
+    margin-bottom: 0;
+}
+
+.table > thead th {
+    background-color: var(--bg);
+    color: var(--muted);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    padding: 0.65rem 0.75rem;
+    white-space: nowrap;
+}
+
+.table > :not(caption) > * > * {
+    border-bottom-color: var(--border);
+    padding: 0.7rem 0.75rem;
+    vertical-align: middle;
+}
+
+.table-hover > tbody > tr:hover > * {
+    background-color: var(--surface-hover);
+    color: var(--text);
+}
+
+.table-responsive {
+    border-radius: 0;
+}
+
+/* =========================================================
+   Badges / chips
+   ========================================================= */
+.badge {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    padding: 0.32em 0.6em;
+    border-radius: 999px;
+    border: 1px solid transparent;
+}
+
+.bg-success-subtle,
+.text-success.bg-success-subtle {
+    background-color: var(--success-bg) !important;
+    color: var(--success) !important;
+}
+
+.border-success-subtle {
+    border-color: var(--success-border) !important;
+}
+
+.bg-warning-subtle,
+.text-warning.bg-warning-subtle {
+    background-color: var(--warning-bg) !important;
+    color: var(--warning) !important;
+}
+
+.border-warning-subtle {
+    border-color: var(--warning-border) !important;
+}
+
+.bg-danger-subtle,
+.text-danger.bg-danger-subtle {
+    background-color: var(--danger-bg) !important;
+    color: var(--danger) !important;
+}
+
+.border-danger-subtle {
+    border-color: var(--danger-border) !important;
+}
+
+.bg-primary-subtle,
+.text-primary.bg-primary-subtle {
+    background-color: var(--info-bg) !important;
+    color: var(--info) !important;
+}
+
+.border-primary-subtle {
+    border-color: var(--info-border) !important;
+}
+
+.bg-info-subtle,
+.text-info.bg-info-subtle {
+    background-color: var(--info-bg) !important;
+    color: var(--info) !important;
+}
+
+.border-info-subtle {
+    border-color: var(--info-border) !important;
+}
+
+.bg-secondary-subtle,
+.text-secondary.bg-secondary-subtle {
+    background-color: #f4f4f5 !important;
+    color: #52525b !important;
+}
+
+.border-secondary-subtle {
+    border-color: #e4e4e7 !important;
+}
+
+/* =========================================================
+   Alertas
+   ========================================================= */
+.alert {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.8125rem;
+    padding: 0.75rem 1rem;
+}
+
+.alert-success {
+    background-color: var(--success-bg);
+    border-color: var(--success-border);
+    color: var(--success);
+}
+
+.alert-danger {
+    background-color: var(--danger-bg);
+    border-color: var(--danger-border);
+    color: var(--danger);
+}
+
+.alert-warning {
+    background-color: var(--warning-bg);
+    border-color: var(--warning-border);
+    color: var(--warning);
+}
+
+.alert-info {
+    background-color: var(--info-bg);
+    border-color: var(--info-border);
+    color: var(--info);
+}
+
+/* =========================================================
+   Dropdown / paginación
+   ========================================================= */
+.dropdown-menu {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.35rem;
+    font-size: 0.8125rem;
+}
+
+.dropdown-item {
+    border-radius: var(--radius-sm);
+    padding: 0.45rem 0.6rem;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: var(--surface-hover);
+    color: var(--text);
+}
+
+.dropdown-divider {
+    border-color: var(--border);
+}
+
+.dropdown-item-text {
+    color: var(--muted);
+}
+
+.pagination {
+    gap: 0.2rem;
+}
+
+.page-link {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm) !important;
+    color: var(--text);
+    font-size: 0.75rem;
+    padding: 0.35rem 0.55rem;
+}
+
+.page-link:hover {
+    background-color: var(--surface-hover);
+    color: var(--text);
+}
+
+.page-item.active .page-link {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+}
+
+.page-item.disabled .page-link {
+    background-color: var(--surface);
+    color: #c4c4c4;
+    border-color: var(--border);
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.footer {
+    background-color: var(--surface);
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+
+/* =========================================================
+   Utilidades propias
+   ========================================================= */
+.kpi-icon {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+}
+
+.thumb {
+    width: 64px;
+    height: 48px;
+    object-fit: cover;
+}
+
+.detail-cover {
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+}
+
+.thumb-gallery {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.placeholder-box {
+    height: 260px;
+    background-color: var(--bg);
+    border: 1px dashed var(--border-strong);
+    color: var(--muted);
+}
+
+.muted-panel {
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.hero-text {
+    max-width: 620px;
+}
+
+.avatar-120 {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.avatar-96 {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+}
+
+.thumb-edit {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.thumb-edit-sm {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+}
+
+.divider {
+    border-top: 1px solid var(--border);
+}

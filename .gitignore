@@ -7,6 +7,13 @@
 *.suo
 appsettings.Development.json
 
+# Archivos subidos por los usuarios en runtime (no versionar)
+**/wwwroot/uploads/*
+!**/wwwroot/uploads/inmuebles/
+**/wwwroot/uploads/inmuebles/*
+!**/wwwroot/uploads/inmuebles/demo/
+!**/wwwroot/uploads/inmuebles/demo/*
+**/wwwroot/img/avatars/
 
 *.log
 .vscode/

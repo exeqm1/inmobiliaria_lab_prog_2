@@ -1,0 +1,48 @@
+@model Reserva
+
+@{
+    ViewData["Title"] = "Dar de Baja Reserva";
+    int dias = (Model.FechaFin - Model.FechaInicio).Days;
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header bg-danger text-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-exclamation-triangle me-2"></i>Confirmar Baja
+                </h5>
+            </div>
+            <div class="card-body p-4">
+                <p class="mb-4">
+                    ¿Está seguro que desea dar de baja la reserva del inmueble
+                    <strong>@Model.Inmueble?.Direccion</strong>?
+                    La baja es lógica: el registro se conserva pero no aparecerá en el listado.
+                </p>
+
+                <dl class="row muted-panel p-3 mb-4">
+                    <dt class="col-sm-5">Inquilino</dt>
+                    <dd class="col-sm-7">@Model.Inquilino?.NombreCompleto</dd>
+
+                    <dt class="col-sm-5">Fechas</dt>
+                    <dd class="col-sm-7">@Model.FechaInicio.ToString("dd/MM/yyyy") — @Model.FechaFin.ToString("dd/MM/yyyy")</dd>
+
+                    <dt class="col-sm-5">Total Estimado</dt>
+                    <dd class="col-sm-7">$@((dias * Model.MontoDiario).ToString("N2"))</dd>
+                </dl>
+
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex justify-content-between pt-2 border-top">
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-danger px-4">
+                            <i class="bi bi-trash me-1"></i>Dar de Baja
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
