@@ -32,12 +32,32 @@
                     <input type="hidden" asp-for="Id" />
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
+                    <div class="alert alert-info small">
+                        <i class="bi bi-info-circle me-1"></i>
+                        La renovación genera una <strong>nueva reserva</strong> con el mismo inmueble e inquilino.
+                        La reserva original no se modifica y conserva sus fechas y su monto.
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="NuevaFechaInicio" class="form-label fw-bold"></label>
+                            <input asp-for="NuevaFechaInicio" type="date" class="form-control"
+                                   min="@Model.FechaFinActual.ToString("yyyy-MM-dd")" />
+                            <span asp-validation-for="NuevaFechaInicio" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="NuevaFechaFin" class="form-label fw-bold"></label>
+                            <input asp-for="NuevaFechaFin" type="date" class="form-control"
+                                   min="@Model.FechaFinActual.AddDays(1).ToString("yyyy-MM-dd")" />
+                            <span asp-validation-for="NuevaFechaFin" class="text-danger small"></span>
+                        </div>
+                    </div>
+
                     <div class="mb-4">
-                        <label asp-for="NuevaFechaFin" class="form-label fw-bold"></label>
-                        <input asp-for="NuevaFechaFin" type="date" class="form-control"
-                               min="@Model.FechaFinActual.AddDays(1).ToString("yyyy-MM-dd")" />
-                        <span asp-validation-for="NuevaFechaFin" class="text-danger small"></span>
-                        <div class="form-text">Debe ser posterior a la fecha de fin actual y no superponerse con otra reserva del inmueble.</div>
+                        <label asp-for="NuevoMontoDiario" class="form-label fw-bold"></label>
+                        <input asp-for="NuevoMontoDiario" type="number" step="0.01" min="0.01" class="form-control" />
+                        <span asp-validation-for="NuevoMontoDiario" class="text-danger small"></span>
+                        <div class="form-text">Debe comenzar en la fecha de fin actual o después y no superponerse con otra reserva del inmueble.</div>
                     </div>
 
                     <div class="d-flex justify-content-between">

@@ -31,9 +31,10 @@ namespace Inmobiliaria.Controllers
         }
 
         // GET: Inmuebles
-        public IActionResult Index(int pagina = 1, int tamanio = 10, string? busqueda = null)
+        public IActionResult Index(int pagina = 1, int tamanio = 10, string? busqueda = null, bool? disponible = null)
         {
-            var resultado = _repo.ObtenerPaginado(pagina, tamanio, busqueda);
+            var resultado = _repo.ObtenerPaginado(pagina, tamanio, busqueda, disponible);
+            ViewBag.Disponible = disponible;
             return View(resultado);
         }
 
@@ -215,6 +216,7 @@ namespace Inmobiliaria.Controllers
         }
 
         // GET: Inmuebles/Delete/5
+        [Authorize(Roles = "Administrador")]
         public IActionResult Delete(int id)
         {
             var inmueble = _repo.ObtenerPorId(id);
@@ -228,6 +230,7 @@ namespace Inmobiliaria.Controllers
         }
 
         // POST: Inmuebles/Delete/5
+        [Authorize(Roles = "Administrador")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
@@ -250,7 +253,29 @@ namespace Inmobiliaria.Controllers
         private void CargarCombos(InmuebleFormViewModel? model = null)
         {
             ViewBag.Tipos = new SelectList(_repoTipos.ObtenerTodos(), "Id", "Descripcion", model?.TipoId);
-            ViewBag.Propietarios = new SelectList(_repoPropietarios.ObtenerTodos(), "Id", "NombreCompleto", model?.PropietarioId);
+            ViewBag.PropietarioTexto = model != null && model.PropietarioId > 0
+                ? _repoPropietarios.ObtenerPorId(model.PropietarioId)?.NombreCompleto
+                : null;
+        }
+
+        // GET: Inmuebles/Buscar?q=texto&disponibles=true
+        [HttpGet]
+        public IActionResult Buscar(string q, bool? disponibles = null)
+        {
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return Json(new List<OpcionSelect>());
+            }
+
+            var lista = _repo.Buscar(q)
+                .Where(i => disponibles != true || i.Disponible)
+                .Select(i => new OpcionSelect
+                {
+                    Id = i.Id,
+                    Text = $"{i.Direccion} - ${i.PrecioDia:N2}/día"
+                });
+
+            return Json(lista);
         }
 
         private void ValidarArchivos(InmuebleFormViewModel model)

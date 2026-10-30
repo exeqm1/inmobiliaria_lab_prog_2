@@ -6,7 +6,7 @@ namespace Inmobiliaria.Repositorios.Interfaces
     {
         List<Inmueble> ObtenerTodos();
 
-        PaginacionResultado<Inmueble> ObtenerPaginado(int pagina = 1, int tamanio = 10, string? busqueda = null);
+        PaginacionResultado<Inmueble> ObtenerPaginado(int pagina = 1, int tamanio = 10, string? busqueda = null, bool? disponible = null);
 
         Inmueble? ObtenerPorId(int id);
 

@@ -101,6 +101,86 @@ namespace Inmobiliaria.Controllers
             }
         }
 
+        // GET: Pagos/Edit/5
+        public IActionResult Edit(int id)
+        {
+            var pago = _repo.ObtenerPorId(id);
+            if (pago == null)
+            {
+                TempData["Mensaje"] = "El pago solicitado no existe.";
+                TempData["TipoMensaje"] = "danger";
+                return RedirectToAction("Index", "Reservas");
+            }
+
+            if (pago.Anulado)
+            {
+                TempData["Mensaje"] = "No se puede editar un pago anulado.";
+                TempData["TipoMensaje"] = "danger";
+                return RedirectToAction(nameof(Index), new { reservaId = pago.ReservaId });
+            }
+
+            var reserva = _repoReservas.ObtenerPorId(pago.ReservaId);
+            return View(new PagoEditViewModel
+            {
+                Id = pago.Id,
+                ReservaId = pago.ReservaId,
+                Concepto = pago.Concepto,
+                Importe = pago.Importe,
+                FechaPago = pago.FechaPago,
+                InmuebleDescripcion = reserva?.Inmueble?.Direccion
+            });
+        }
+
+        // POST: Pagos/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, PagoEditViewModel model)
+        {
+            if (id != model.Id)
+            {
+                return BadRequest();
+            }
+
+            var pago = _repo.ObtenerPorId(id);
+            if (pago == null)
+            {
+                TempData["Mensaje"] = "El pago solicitado no existe.";
+                TempData["TipoMensaje"] = "danger";
+                return RedirectToAction("Index", "Reservas");
+            }
+
+            if (pago.Anulado)
+            {
+                TempData["Mensaje"] = "No se puede editar un pago anulado.";
+                TempData["TipoMensaje"] = "danger";
+                return RedirectToAction(nameof(Index), new { reservaId = pago.ReservaId });
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.Importe = pago.Importe;
+                model.FechaPago = pago.FechaPago;
+                model.ReservaId = pago.ReservaId;
+                return View(model);
+            }
+
+            try
+            {
+                _repo.ModificacionConcepto(id, model.Concepto);
+                TempData["Mensaje"] = "El concepto del pago fue actualizado.";
+                TempData["TipoMensaje"] = "success";
+                return RedirectToAction(nameof(Index), new { reservaId = pago.ReservaId });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "Error al actualizar el pago: " + ex.Message);
+                model.Importe = pago.Importe;
+                model.FechaPago = pago.FechaPago;
+                model.ReservaId = pago.ReservaId;
+                return View(model);
+            }
+        }
+
         // POST: Pagos/Anular/5
         [HttpPost]
         [ValidateAntiForgeryToken]

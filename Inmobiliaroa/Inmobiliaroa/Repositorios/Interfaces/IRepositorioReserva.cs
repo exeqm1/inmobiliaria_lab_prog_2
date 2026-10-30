@@ -15,13 +15,13 @@ namespace Inmobiliaria.Repositorios.Interfaces
 
         int Alta(Reserva reserva);
 
+        // Da de alta la reserva y, en la misma transacción, el pago de la seña inicial.
+        int AltaConSena(Reserva reserva, string concepto, decimal importe);
+
         int Modificacion(Reserva reserva);
 
-        // Registra una rescisión anticipada: fecha de fin efectiva, multa y usuario finalizador.
-        int Rescindir(int id, DateTime fechaFinEfectiva, decimal multa, int usuarioFinalizadorId);
-
-        // Extiende la fecha de fin de una reserva activa (renovación).
-        int Renovar(int id, DateTime nuevaFechaFin);
+        // Registra una rescisión anticipada y el pago de la multa en una misma transacción.
+        int RescindirConPago(int id, DateTime fechaFinEfectiva, decimal multa, string concepto, int usuarioFinalizadorId);
 
         int BajaLogica(int id);
     }

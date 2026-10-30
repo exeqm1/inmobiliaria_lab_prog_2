@@ -1,0 +1,15 @@
+@model ComboBusquedaViewModel
+
+<div class="combo-busqueda" data-url="@Model.Url">
+    <input type="text"
+           id="@(Model.Id)_texto"
+           class="form-control combo-busqueda-input"
+           value="@Model.Texto"
+           placeholder="@Model.Placeholder"
+           autocomplete="off"
+           role="combobox"
+           aria-autocomplete="list"
+           aria-expanded="false" />
+    <input type="hidden" id="@Model.Id" name="@Model.Nombre" value="@Model.Valor" />
+    <div class="combo-busqueda-lista" role="listbox"></div>
+</div>

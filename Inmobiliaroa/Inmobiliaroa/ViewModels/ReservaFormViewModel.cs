@@ -29,6 +29,9 @@ namespace Inmobiliaria.ViewModels
         // Solo para mostrar en la edición (el monto diario queda congelado al crear la reserva).
         public decimal MontoDiario { get; set; }
 
+        [Display(Name = "Registrar la seña inicial")]
+        public bool RegistrarSena { get; set; } = true;
+
         public string? InmuebleDescripcion { get; set; }
     }
 }

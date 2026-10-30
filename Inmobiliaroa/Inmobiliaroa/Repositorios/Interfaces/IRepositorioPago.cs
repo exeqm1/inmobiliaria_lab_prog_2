@@ -12,6 +12,8 @@ namespace Inmobiliaria.Repositorios.Interfaces
 
         int Alta(Pago pago);
 
+        int ModificacionConcepto(int id, string concepto);
+
         int Anular(int id, int usuarioAnuladorId);
     }
 }

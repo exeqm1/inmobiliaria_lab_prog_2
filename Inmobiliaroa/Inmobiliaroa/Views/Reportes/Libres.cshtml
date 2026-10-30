@@ -1,0 +1,87 @@
+@model InformeLibresViewModel
+
+@{
+    ViewData["Title"] = "Inmuebles Libres";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="h3 mb-0 text-gray-800">
+            <i class="bi bi-calendar2-range text-primary me-2"></i>Inmuebles Libres
+        </h2>
+        <small class="text-muted">Sin ocupación entre @Model.Desde.ToString("dd/MM/yyyy") y @Model.Hasta.ToString("dd/MM/yyyy")</small>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Volver al Panel
+    </a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form asp-action="Libres" method="get" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label for="desde" class="form-label fw-semibold">Desde</label>
+                <input type="date" id="desde" name="desde" class="form-control" value="@Model.Desde.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="col-md-4">
+                <label for="hasta" class="form-label fw-semibold">Hasta</label>
+                <input type="date" id="hasta" name="hasta" class="form-control" value="@Model.Hasta.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search me-1"></i>Buscar
+                </button>
+                <a asp-action="Libres" class="btn btn-outline-secondary">
+                    <i class="bi bi-x-circle me-1"></i>Limpiar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 80px;">Código</th>
+                    <th scope="col">Dirección</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Propietario</th>
+                    <th scope="col" class="text-center" style="width: 70px;">Cupo</th>
+                    <th scope="col" class="text-end" style="width: 120px;">Precio/Día</th>
+                    <th scope="col" class="text-end" style="width: 100px;">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Inmuebles.Any())
+                {
+                    foreach (var item in Model.Inmuebles)
+                    {
+                        <tr>
+                            <td class="fw-semibold">#@item.Id</td>
+                            <td>@item.Direccion</td>
+                            <td>@item.Tipo</td>
+                            <td>@item.Propietario</td>
+                            <td class="text-center">@item.Cupo</td>
+                            <td class="text-end">$@item.PrecioDia.ToString("N2")</td>
+                            <td class="text-end">
+                                <a asp-controller="Reservas" asp-action="Create" class="btn btn-sm btn-outline-primary" title="Reservar">
+                                    <i class="bi bi-calendar-plus"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox fs-3 d-block mb-2"></i>No hay inmuebles libres en ese rango de fechas.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

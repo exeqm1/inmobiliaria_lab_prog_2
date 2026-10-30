@@ -37,7 +37,7 @@ namespace Inmobiliaria.Repositorios
             return lista;
         }
 
-        public PaginacionResultado<Inmueble> ObtenerPaginado(int pagina = 1, int tamanio = 10, string? busqueda = null)
+        public PaginacionResultado<Inmueble> ObtenerPaginado(int pagina = 1, int tamanio = 10, string? busqueda = null, bool? disponible = null)
         {
             if (pagina < 1) pagina = 1;
             if (tamanio < 1) tamanio = 10;
@@ -55,14 +55,17 @@ namespace Inmobiliaria.Repositorios
                 ? " AND (i.direccion LIKE @filtro OR t.descripcion LIKE @filtro OR p.nombre LIKE @filtro OR p.apellido LIKE @filtro)"
                 : "";
 
+            bool tieneDisponible = disponible.HasValue;
+            string filtroDisponibleSql = tieneDisponible ? " AND i.disponible = @disponible" : "";
+
             string sqlCount = $@"
                 SELECT COUNT(*)
                 FROM Inmuebles i
                 INNER JOIN Tipos_Inmueble t ON i.tipo_id = t.id
                 INNER JOIN Propietarios p ON i.propietario_id = p.id
-                WHERE i.estado = 1 {filtroSql}";
+                WHERE i.estado = 1 {filtroSql} {filtroDisponibleSql}";
 
-            string sqlData = SelectBase + $" WHERE i.estado = 1 {filtroSql} ORDER BY i.id DESC LIMIT @limit OFFSET @offset";
+            string sqlData = SelectBase + $" WHERE i.estado = 1 {filtroSql} {filtroDisponibleSql} ORDER BY i.id DESC LIMIT @limit OFFSET @offset";
 
             using var conexion = GetConnection();
             conexion.Open();
@@ -73,6 +76,10 @@ namespace Inmobiliaria.Repositorios
                 {
                     cmdCount.Parameters.AddWithValue("@filtro", $"%{busqueda}%");
                 }
+                if (tieneDisponible)
+                {
+                    cmdCount.Parameters.AddWithValue("@disponible", disponible!.Value ? 1 : 0);
+                }
                 resultado.TotalElementos = Convert.ToInt32(cmdCount.ExecuteScalar());
             }
 
@@ -81,6 +88,10 @@ namespace Inmobiliaria.Repositorios
                 if (tieneFiltro)
                 {
                     cmdData.Parameters.AddWithValue("@filtro", $"%{busqueda}%");
+                }
+                if (tieneDisponible)
+                {
+                    cmdData.Parameters.AddWithValue("@disponible", disponible!.Value ? 1 : 0);
                 }
                 cmdData.Parameters.AddWithValue("@limit", tamanio);
                 cmdData.Parameters.AddWithValue("@offset", offset);

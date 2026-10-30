@@ -20,20 +20,27 @@
     <div class="card-body py-2">
         <form asp-action="Index" method="get" class="row g-2 align-items-center">
             <input type="hidden" name="pagina" value="1" />
-            <div class="col-md-9 col-sm-8">
+            <div class="col-md-6 col-sm-6">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-search text-muted"></i></span>
                     <input type="text" name="busqueda" value="@Model.CriterioBusqueda"
                            class="form-control" placeholder="Buscar por dirección, tipo o propietario..." />
                 </div>
             </div>
-            <div class="col-md-3 col-sm-4 d-flex gap-2">
+            <div class="col-md-3 col-sm-6">
+                <select name="disponible" class="form-select">
+                    <option value="">Todos los estados</option>
+                    <option value="true" selected="@(ViewBag.Disponible as bool? == true ? "selected" : null)">Disponibles</option>
+                    <option value="false" selected="@(ViewBag.Disponible as bool? == false ? "selected" : null)">No disponibles</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-12 d-flex gap-2">
                 <button type="submit" class="btn btn-dark w-100">
                     <i class="bi bi-funnel me-1"></i>Filtrar
                 </button>
-                @if (!string.IsNullOrWhiteSpace(Model.CriterioBusqueda))
+                @if (!string.IsNullOrWhiteSpace(Model.CriterioBusqueda) || ViewBag.Disponible != null)
                 {
-                    <a asp-action="Index" class="btn btn-outline-secondary" title="Limpiar filtro">
+                    <a asp-action="Index" class="btn btn-outline-secondary" title="Limpiar filtros">
                         <i class="bi bi-x-lg"></i>
                     </a>
                 }
@@ -104,9 +111,12 @@
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary" title="Editar">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Dar de baja">
-                                        <i class="bi bi-trash"></i>
-                                    </a>
+                                    @if (User.IsInRole("Administrador"))
+                                    {
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Dar de baja">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    }
                                 </div>
                             </td>
                         </tr>
@@ -117,7 +127,7 @@
                     <tr>
                         <td colspan="9" class="text-center py-4 text-muted">
                             <i class="bi bi-inbox fs-3 d-block mb-2"></i>
-                            No se encontraron inmuebles @(!string.IsNullOrEmpty(Model.CriterioBusqueda) ? "con ese criterio de búsqueda" : "").
+                            No se encontraron inmuebles @(!string.IsNullOrEmpty(Model.CriterioBusqueda) || ViewBag.Disponible != null ? "con esos filtros" : "").
                         </td>
                     </tr>
                 }
@@ -132,18 +142,18 @@
             <nav aria-label="Navegación de páginas">
                 <ul class="pagination pagination-sm mb-0">
                     <li class="page-item @(!Model.TienePaginaAnterior ? "disabled" : "")">
-                        <a class="page-link" asp-action="Index" asp-route-pagina="@(Model.PaginaActual - 1)" asp-route-busqueda="@Model.CriterioBusqueda">
+                        <a class="page-link" asp-action="Index" asp-route-pagina="@(Model.PaginaActual - 1)" asp-route-busqueda="@Model.CriterioBusqueda" asp-route-disponible="@ViewBag.Disponible">
                             <i class="bi bi-chevron-left"></i> Anterior
                         </a>
                     </li>
                     @for (int i = 1; i <= Model.TotalPaginas; i++)
                     {
                         <li class="page-item @(i == Model.PaginaActual ? "active" : "")">
-                            <a class="page-link" asp-action="Index" asp-route-pagina="@i" asp-route-busqueda="@Model.CriterioBusqueda">@i</a>
+                            <a class="page-link" asp-action="Index" asp-route-pagina="@i" asp-route-busqueda="@Model.CriterioBusqueda" asp-route-disponible="@ViewBag.Disponible">@i</a>
                         </li>
                     }
                     <li class="page-item @(!Model.TienePaginaSiguiente ? "disabled" : "")">
-                        <a class="page-link" asp-action="Index" asp-route-pagina="@(Model.PaginaActual + 1)" asp-route-busqueda="@Model.CriterioBusqueda">
+                        <a class="page-link" asp-action="Index" asp-route-pagina="@(Model.PaginaActual + 1)" asp-route-busqueda="@Model.CriterioBusqueda" asp-route-disponible="@ViewBag.Disponible">
                             Siguiente <i class="bi bi-chevron-right"></i>
                         </a>
                     </li>

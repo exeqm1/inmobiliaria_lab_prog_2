@@ -15,11 +15,13 @@ namespace Inmobiliaria.Repositorios
                    r.fecha_fin_efectiva, r.multa, r.usuario_creador_id, r.usuario_finalizador_id, r.estado,
                    i.direccion AS inmueble_direccion,
                    inq.nombre AS inquilino_nombre, inq.apellido AS inquilino_apellido,
-                   uc.nombre AS creador_nombre, uc.apellido AS creador_apellido
+                   uc.nombre AS creador_nombre, uc.apellido AS creador_apellido,
+                   uf.nombre AS finalizador_nombre, uf.apellido AS finalizador_apellido
             FROM Reservas r
             INNER JOIN Inmuebles i ON r.inmueble_id = i.id
             INNER JOIN Inquilinos inq ON r.inquilino_id = inq.id
-            INNER JOIN Usuarios uc ON r.usuario_creador_id = uc.id";
+            INNER JOIN Usuarios uc ON r.usuario_creador_id = uc.id
+            LEFT JOIN Usuarios uf ON r.usuario_finalizador_id = uf.id";
 
         public List<Reserva> ObtenerTodos()
         {
@@ -166,6 +168,42 @@ namespace Inmobiliaria.Repositorios
             return r.Id;
         }
 
+        public int AltaConSena(Reserva r, string concepto, decimal importe)
+        {
+            const string sqlReserva = @"
+                INSERT INTO Reservas (inmueble_id, inquilino_id, fecha_inicio, fecha_fin, monto_diario, fecha_fin_efectiva, multa, usuario_creador_id, estado)
+                VALUES (@inmuebleId, @inquilinoId, @fechaInicio, @fechaFin, @montoDiario, NULL, 0, @usuarioCreadorId, 1);
+                SELECT LAST_INSERT_ID();";
+
+            const string sqlPago = @"
+                INSERT INTO Pagos (reserva_id, concepto, fecha_pago, importe, usuario_creador_id, anulado)
+                VALUES (@reservaId, @concepto, NOW(), @importe, @usuarioCreadorId, 0);";
+
+            using var conexion = GetConnection();
+            conexion.Open();
+            using var transaccion = conexion.BeginTransaction();
+
+            using var cmdReserva = new MySqlCommand(sqlReserva, conexion, transaccion);
+            cmdReserva.Parameters.AddWithValue("@inmuebleId", r.InmuebleId);
+            cmdReserva.Parameters.AddWithValue("@inquilinoId", r.InquilinoId);
+            cmdReserva.Parameters.AddWithValue("@fechaInicio", r.FechaInicio.Date);
+            cmdReserva.Parameters.AddWithValue("@fechaFin", r.FechaFin.Date);
+            cmdReserva.Parameters.AddWithValue("@montoDiario", r.MontoDiario);
+            cmdReserva.Parameters.AddWithValue("@usuarioCreadorId", r.UsuarioCreadorId);
+
+            r.Id = Convert.ToInt32(cmdReserva.ExecuteScalar());
+
+            using var cmdPago = new MySqlCommand(sqlPago, conexion, transaccion);
+            cmdPago.Parameters.AddWithValue("@reservaId", r.Id);
+            cmdPago.Parameters.AddWithValue("@concepto", concepto.Trim());
+            cmdPago.Parameters.AddWithValue("@importe", importe);
+            cmdPago.Parameters.AddWithValue("@usuarioCreadorId", r.UsuarioCreadorId);
+            cmdPago.ExecuteNonQuery();
+
+            transaccion.Commit();
+            return r.Id;
+        }
+
         public int Modificacion(Reserva r)
         {
             const string sql = @"
@@ -186,9 +224,13 @@ namespace Inmobiliaria.Repositorios
             return comando.ExecuteNonQuery();
         }
 
-        public int Rescindir(int id, DateTime fechaFinEfectiva, decimal multa, int usuarioFinalizadorId)
+        public int RescindirConPago(int id, DateTime fechaFinEfectiva, decimal multa, string concepto, int usuarioFinalizadorId)
         {
-            const string sql = @"
+            const string sqlPago = @"
+                INSERT INTO Pagos (reserva_id, concepto, fecha_pago, importe, usuario_creador_id, anulado)
+                VALUES (@reservaId, @concepto, NOW(), @importe, @usuarioFinalizadorId, 0);";
+
+            const string sqlReserva = @"
                 UPDATE Reservas
                 SET fecha_fin_efectiva = @fechaFinEfectiva,
                     multa = @multa,
@@ -196,27 +238,25 @@ namespace Inmobiliaria.Repositorios
                 WHERE id = @id";
 
             using var conexion = GetConnection();
-            using var comando = new MySqlCommand(sql, conexion);
-            comando.Parameters.AddWithValue("@fechaFinEfectiva", fechaFinEfectiva.Date);
-            comando.Parameters.AddWithValue("@multa", multa);
-            comando.Parameters.AddWithValue("@usuarioFinalizadorId", usuarioFinalizadorId);
-            comando.Parameters.AddWithValue("@id", id);
             conexion.Open();
+            using var transaccion = conexion.BeginTransaction();
 
-            return comando.ExecuteNonQuery();
-        }
+            using var cmdPago = new MySqlCommand(sqlPago, conexion, transaccion);
+            cmdPago.Parameters.AddWithValue("@reservaId", id);
+            cmdPago.Parameters.AddWithValue("@concepto", concepto.Trim());
+            cmdPago.Parameters.AddWithValue("@importe", multa);
+            cmdPago.Parameters.AddWithValue("@usuarioFinalizadorId", usuarioFinalizadorId);
+            cmdPago.ExecuteNonQuery();
 
-        public int Renovar(int id, DateTime nuevaFechaFin)
-        {
-            const string sql = "UPDATE Reservas SET fecha_fin = @nuevaFechaFin WHERE id = @id";
+            using var cmdReserva = new MySqlCommand(sqlReserva, conexion, transaccion);
+            cmdReserva.Parameters.AddWithValue("@fechaFinEfectiva", fechaFinEfectiva.Date);
+            cmdReserva.Parameters.AddWithValue("@multa", multa);
+            cmdReserva.Parameters.AddWithValue("@usuarioFinalizadorId", usuarioFinalizadorId);
+            cmdReserva.Parameters.AddWithValue("@id", id);
+            int filas = cmdReserva.ExecuteNonQuery();
 
-            using var conexion = GetConnection();
-            using var comando = new MySqlCommand(sql, conexion);
-            comando.Parameters.AddWithValue("@nuevaFechaFin", nuevaFechaFin.Date);
-            comando.Parameters.AddWithValue("@id", id);
-            conexion.Open();
-
-            return comando.ExecuteNonQuery();
+            transaccion.Commit();
+            return filas;
         }
 
         public int BajaLogica(int id)
@@ -233,7 +273,7 @@ namespace Inmobiliaria.Repositorios
 
         private static Reserva Mapear(MySqlDataReader reader)
         {
-            return new Reserva
+            var reserva = new Reserva
             {
                 Id = reader.GetInt32("id"),
                 InmuebleId = reader.GetInt32("inmueble_id"),
@@ -264,6 +304,18 @@ namespace Inmobiliaria.Repositorios
                     Apellido = reader.GetString("creador_apellido")
                 }
             };
+
+            if (reserva.UsuarioFinalizadorId.HasValue)
+            {
+                reserva.UsuarioFinalizador = new Usuario
+                {
+                    Id = reserva.UsuarioFinalizadorId.Value,
+                    Nombre = reader.GetString("finalizador_nombre"),
+                    Apellido = reader.GetString("finalizador_apellido")
+                };
+            }
+
+            return reserva;
         }
     }
 }

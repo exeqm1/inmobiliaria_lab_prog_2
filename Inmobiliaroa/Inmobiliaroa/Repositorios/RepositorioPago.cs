@@ -89,6 +89,19 @@ namespace Inmobiliaria.Repositorios
             return p.Id;
         }
 
+        public int ModificacionConcepto(int id, string concepto)
+        {
+            const string sql = "UPDATE Pagos SET concepto = @concepto WHERE id = @id AND anulado = 0";
+
+            using var conexion = GetConnection();
+            using var comando = new MySqlCommand(sql, conexion);
+            comando.Parameters.AddWithValue("@concepto", concepto.Trim());
+            comando.Parameters.AddWithValue("@id", id);
+            conexion.Open();
+
+            return comando.ExecuteNonQuery();
+        }
+
         public int Anular(int id, int usuarioAnuladorId)
         {
             const string sql = "UPDATE Pagos SET anulado = 1, usuario_anulador_id = @usuarioAnuladorId WHERE id = @id";

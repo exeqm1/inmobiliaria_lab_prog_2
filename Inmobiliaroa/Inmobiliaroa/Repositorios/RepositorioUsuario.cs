@@ -32,6 +32,63 @@ namespace Inmobiliaria.Repositorios
             return lista;
         }
 
+        public PaginacionResultado<Usuario> ObtenerPaginado(int pagina = 1, int tamanio = 10, string? busqueda = null)
+        {
+            if (pagina < 1) pagina = 1;
+            if (tamanio < 1) tamanio = 10;
+            int offset = (pagina - 1) * tamanio;
+
+            var resultado = new PaginacionResultado<Usuario>
+            {
+                PaginaActual = pagina,
+                ElementosPorPagina = tamanio,
+                CriterioBusqueda = busqueda
+            };
+
+            bool tieneFiltro = !string.IsNullOrWhiteSpace(busqueda);
+            string filtroSql = tieneFiltro
+                ? " AND (nombre LIKE @filtro OR apellido LIKE @filtro OR email LIKE @filtro OR rol LIKE @filtro)"
+                : "";
+
+            string sqlCount = $"SELECT COUNT(*) FROM Usuarios WHERE estado = 1 {filtroSql}";
+            string sqlData = $@"
+                SELECT id, nombre, apellido, email, password, rol, avatar, estado
+                FROM Usuarios
+                WHERE estado = 1 {filtroSql}
+                ORDER BY apellido, nombre
+                LIMIT @limit OFFSET @offset";
+
+            using var conexion = GetConnection();
+            conexion.Open();
+
+            using (var cmdCount = new MySqlCommand(sqlCount, conexion))
+            {
+                if (tieneFiltro)
+                {
+                    cmdCount.Parameters.AddWithValue("@filtro", $"%{busqueda}%");
+                }
+                resultado.TotalElementos = Convert.ToInt32(cmdCount.ExecuteScalar());
+            }
+
+            using (var cmdData = new MySqlCommand(sqlData, conexion))
+            {
+                if (tieneFiltro)
+                {
+                    cmdData.Parameters.AddWithValue("@filtro", $"%{busqueda}%");
+                }
+                cmdData.Parameters.AddWithValue("@limit", tamanio);
+                cmdData.Parameters.AddWithValue("@offset", offset);
+
+                using var reader = cmdData.ExecuteReader();
+                while (reader.Read())
+                {
+                    resultado.Elementos.Add(Mapear(reader));
+                }
+            }
+
+            return resultado;
+        }
+
         public Usuario? ObtenerPorId(int id)
         {
             Usuario? usuario = null;

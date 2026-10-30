@@ -90,8 +90,23 @@ namespace Inmobiliaria.Controllers
 
             try
             {
-                _repo.Alta(reserva);
-                TempData["Mensaje"] = "Reserva registrada con éxito.";
+                int dias = (reserva.FechaFin.Date - reserva.FechaInicio.Date).Days;
+                decimal importeSena = model.RegistrarSena && inmueble.PorcentajeReserva > 0
+                    ? Math.Round(dias * inmueble.PrecioDia * inmueble.PorcentajeReserva / 100m, 2)
+                    : 0m;
+
+                if (importeSena > 0)
+                {
+                    _repo.AltaConSena(reserva, "Seña", importeSena);
+                }
+                else
+                {
+                    _repo.Alta(reserva);
+                }
+
+                TempData["Mensaje"] = importeSena > 0
+                    ? $"Reserva registrada con éxito. Seña del {inmueble.PorcentajeReserva}% registrada por ${importeSena.ToString("N2")}."
+                    : "Reserva registrada con éxito.";
                 TempData["TipoMensaje"] = "success";
                 return RedirectToAction(nameof(Index));
             }
@@ -184,6 +199,7 @@ namespace Inmobiliaria.Controllers
         }
 
         // GET: Reservas/Delete/5
+        [Authorize(Roles = "Administrador")]
         public IActionResult Delete(int id)
         {
             var reserva = _repo.ObtenerPorId(id);
@@ -197,6 +213,7 @@ namespace Inmobiliaria.Controllers
         }
 
         // POST: Reservas/Delete/5
+        [Authorize(Roles = "Administrador")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
@@ -291,8 +308,8 @@ namespace Inmobiliaria.Controllers
 
             try
             {
-                _repo.Rescindir(reserva.Id, model.FechaFinEfectiva, model.MultaEstimada, IdUsuarioActual());
-                TempData["Mensaje"] = $"Reserva rescindida. Multa aplicada: ${model.MultaEstimada.ToString("N2")}.";
+                _repo.RescindirConPago(reserva.Id, model.FechaFinEfectiva, model.MultaEstimada, model.Concepto, IdUsuarioActual());
+                TempData["Mensaje"] = $"Reserva rescindida. Multa cobrada y registrada en pagos: ${model.MultaEstimada.ToString("N2")}.";
                 TempData["TipoMensaje"] = "success";
                 return RedirectToAction(nameof(Details), new { id = reserva.Id });
             }
@@ -329,7 +346,9 @@ namespace Inmobiliaria.Controllers
                 FechaInicio = reserva.FechaInicio,
                 FechaFinActual = reserva.FechaFin,
                 MontoDiario = reserva.MontoDiario,
-                NuevaFechaFin = reserva.FechaFin.AddDays(7)
+                NuevaFechaInicio = reserva.FechaFin,
+                NuevaFechaFin = reserva.FechaFin.AddDays(7),
+                NuevoMontoDiario = reserva.MontoDiario
             });
         }
 
@@ -364,9 +383,14 @@ namespace Inmobiliaria.Controllers
             model.FechaFinActual = reserva.FechaFin;
             model.MontoDiario = reserva.MontoDiario;
 
-            if (model.NuevaFechaFin.Date <= reserva.FechaFin.Date)
+            if (model.NuevaFechaInicio.Date < reserva.FechaFin.Date)
             {
-                ModelState.AddModelError(nameof(model.NuevaFechaFin), "La nueva fecha de fin debe ser posterior a la fecha de fin actual.");
+                ModelState.AddModelError(nameof(model.NuevaFechaInicio), "La nueva reserva debe comenzar en la fecha de fin actual o después.");
+            }
+
+            if (model.NuevaFechaFin.Date <= model.NuevaFechaInicio.Date)
+            {
+                ModelState.AddModelError(nameof(model.NuevaFechaFin), "La nueva fecha de fin debe ser posterior a la nueva fecha de inicio.");
             }
 
             if (!ModelState.IsValid)
@@ -374,7 +398,7 @@ namespace Inmobiliaria.Controllers
                 return View(model);
             }
 
-            if (_repo.ExisteSuperposicion(reserva.InmuebleId, reserva.FechaInicio, model.NuevaFechaFin, reserva.Id))
+            if (_repo.ExisteSuperposicion(reserva.InmuebleId, model.NuevaFechaInicio, model.NuevaFechaFin))
             {
                 ModelState.AddModelError(string.Empty, "El inmueble ya tiene otra reserva activa que se superpone con el nuevo rango de fechas.");
                 return View(model);
@@ -382,10 +406,21 @@ namespace Inmobiliaria.Controllers
 
             try
             {
-                _repo.Renovar(reserva.Id, model.NuevaFechaFin);
-                TempData["Mensaje"] = $"Reserva renovada hasta el {model.NuevaFechaFin:dd/MM/yyyy}.";
+                var nuevaReserva = new Reserva
+                {
+                    InmuebleId = reserva.InmuebleId,
+                    InquilinoId = reserva.InquilinoId,
+                    FechaInicio = model.NuevaFechaInicio.Date,
+                    FechaFin = model.NuevaFechaFin.Date,
+                    MontoDiario = model.NuevoMontoDiario,
+                    UsuarioCreadorId = IdUsuarioActual()
+                };
+
+                // La renovación genera una reserva nueva; la original no se modifica.
+                _repo.Alta(nuevaReserva);
+                TempData["Mensaje"] = $"Nueva reserva #{nuevaReserva.Id} generada para el mismo inmueble e inquilino ({model.NuevaFechaInicio:dd/MM/yyyy} - {model.NuevaFechaFin:dd/MM/yyyy}).";
                 TempData["TipoMensaje"] = "success";
-                return RedirectToAction(nameof(Details), new { id = reserva.Id });
+                return RedirectToAction(nameof(Details), new { id = nuevaReserva.Id });
             }
             catch (Exception ex)
             {
@@ -406,12 +441,19 @@ namespace Inmobiliaria.Controllers
 
         private static decimal CalcularMulta(Reserva reserva, DateTime fechaFinEfectiva)
         {
+            int diasTotales = (reserva.FechaFin.Date - reserva.FechaInicio.Date).Days;
+            int diasUsados = (fechaFinEfectiva.Date - reserva.FechaInicio.Date).Days;
             int diasNoUsados = (reserva.FechaFin.Date - fechaFinEfectiva.Date).Days;
-            if (diasNoUsados <= 0)
+
+            if (diasTotales <= 0 || diasNoUsados <= 0)
             {
                 return 0m;
             }
-            return Math.Round(0.5m * diasNoUsados * reserva.MontoDiario, 2);
+
+            // Si se cumplió menos de la mitad del plazo original: 50% de los días restantes.
+            // Caso contrario: 25% de los días restantes.
+            decimal porcentaje = diasUsados < diasTotales / 2.0m ? 0.5m : 0.25m;
+            return Math.Round(porcentaje * diasNoUsados * reserva.MontoDiario, 2);
         }
 
         private int IdUsuarioActual()
@@ -429,8 +471,12 @@ namespace Inmobiliaria.Controllers
 
         private void CargarCombos(ReservaFormViewModel? model = null)
         {
-            ViewBag.Inmuebles = new SelectList(_repoInmuebles.ObtenerTodos(), "Id", "Direccion", model?.InmuebleId);
-            ViewBag.Inquilinos = new SelectList(_repoInquilinos.ObtenerTodos(), "Id", "NombreCompleto", model?.InquilinoId);
+            ViewBag.InmuebleTexto = model != null && model.InmuebleId > 0
+                ? _repoInmuebles.ObtenerPorId(model.InmuebleId)?.Direccion
+                : null;
+            ViewBag.InquilinoTexto = model != null && model.InquilinoId > 0
+                ? _repoInquilinos.ObtenerPorId(model.InquilinoId)?.NombreCompleto
+                : null;
         }
     }
 }

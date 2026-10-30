@@ -640,3 +640,46 @@ a:hover {
 .divider {
     border-top: 1px solid var(--border);
 }
+
+/* =========================================================
+   Combo con búsqueda server-side
+   ========================================================= */
+.combo-busqueda {
+    position: relative;
+}
+
+.combo-busqueda-lista {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    right: 0;
+    z-index: 1050;
+    display: none;
+    max-height: 240px;
+    overflow-y: auto;
+    background-color: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+}
+
+.combo-busqueda-lista.abierta {
+    display: block;
+}
+
+.combo-busqueda-item {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    background: none;
+    color: var(--text);
+    font: inherit;
+    font-size: 0.875rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+.combo-busqueda-item:hover,
+.combo-busqueda-item.activo {
+    background-color: var(--surface-hover);
+}

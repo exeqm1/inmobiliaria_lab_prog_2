@@ -41,9 +41,15 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="PropietarioId" class="form-label fw-bold"></label>
-                            <select asp-for="PropietarioId" asp-items="ViewBag.Propietarios" class="form-select">
-                                <option value="">-- Seleccione un propietario --</option>
-                            </select>
+                            @await Html.PartialAsync("_ComboBusqueda", new ComboBusquedaViewModel
+                            {
+                                Id = "PropietarioId",
+                                Nombre = "PropietarioId",
+                                Url = Url.Action("Buscar", "Propietarios")!,
+                                Valor = Model.PropietarioId > 0 ? Model.PropietarioId.ToString() : string.Empty,
+                                Texto = ViewBag.PropietarioTexto as string ?? string.Empty,
+                                Placeholder = "Buscar propietario por nombre o DNI..."
+                            })
                             <span asp-validation-for="PropietarioId" class="text-danger small"></span>
                         </div>
                     </div>

@@ -1,0 +1,67 @@
+@model PagoEditViewModel
+
+@{
+    ViewData["Title"] = "Editar Pago";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white py-3">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-pencil-square me-2"></i>Editar Pago #@Model.Id
+                </h5>
+            </div>
+            <div class="card-body p-4">
+                <p class="text-muted">
+                    Reserva <strong>#@Model.ReservaId</strong> — @Model.InmuebleDescripcion
+                </p>
+
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Concepto" class="form-label fw-bold"></label>
+                        <input asp-for="Concepto" class="form-control" list="conceptosSugeridos" autofocus />
+                        <datalist id="conceptosSugeridos">
+                            <option value="Seña"></option>
+                            <option value="Saldo"></option>
+                            <option value="Multa terminación anticipada"></option>
+                        </datalist>
+                        <span asp-validation-for="Concepto" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Importe</label>
+                            <input class="form-control" value="$@Model.Importe.ToString("N2")" disabled />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Fecha de Pago</label>
+                            <input class="form-control" value="@Model.FechaPago.ToString("dd/MM/yyyy HH:mm")" disabled />
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info small">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Solo puede modificarse el concepto. El importe y la fecha quedan fijos; para corregirlos, anulá el pago y registrá uno nuevo.
+                    </div>
+
+                    <div class="d-flex justify-content-between pt-2 border-top">
+                        <a asp-action="Index" asp-route-reservaId="@Model.ReservaId" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Volver
+                        </a>
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-save me-1"></i>Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

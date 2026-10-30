@@ -17,5 +17,10 @@ namespace Inmobiliaria.ViewModels
         public DateTime FechaFin { get; set; }
         public decimal MontoDiario { get; set; }
         public decimal MultaEstimada { get; set; }
+
+        [Required(ErrorMessage = "El concepto del pago es obligatorio.")]
+        [StringLength(150, ErrorMessage = "El concepto no puede superar los {1} caracteres.")]
+        [Display(Name = "Concepto del pago")]
+        public string Concepto { get; set; } = "Multa por rescisión";
     }
 }

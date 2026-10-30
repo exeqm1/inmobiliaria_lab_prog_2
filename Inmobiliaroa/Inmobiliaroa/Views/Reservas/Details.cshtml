@@ -36,8 +36,17 @@
                     <dt class="col-sm-5">Total Estimado</dt>
                     <dd class="col-sm-7 fw-bold">$@((dias * Model.MontoDiario).ToString("N2"))</dd>
 
-                    <dt class="col-sm-5">Registrada por</dt>
-                    <dd class="col-sm-7">@Model.UsuarioCreador?.Nombre @Model.UsuarioCreador?.Apellido</dd>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <dt class="col-sm-5">Registrada por</dt>
+                        <dd class="col-sm-7">@Model.UsuarioCreador?.Nombre @Model.UsuarioCreador?.Apellido</dd>
+
+                        @if (Model.UsuarioFinalizador != null)
+                        {
+                            <dt class="col-sm-5">Finalizada por</dt>
+                            <dd class="col-sm-7">@Model.UsuarioFinalizador.Nombre @Model.UsuarioFinalizador.Apellido</dd>
+                        }
+                    }
 
                     @if (Model.FechaFinEfectiva.HasValue)
                     {

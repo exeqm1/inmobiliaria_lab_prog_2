@@ -18,10 +18,10 @@ namespace Inmobiliaria.Controllers
         }
 
         // GET: Usuarios
-        public IActionResult Index()
+        public IActionResult Index(int pagina = 1, int tamanio = 10, string? busqueda = null)
         {
-            var usuarios = _repo.ObtenerTodos();
-            return View(usuarios);
+            var resultado = _repo.ObtenerPaginado(pagina, tamanio, busqueda);
+            return View(resultado);
         }
 
         // GET: Usuarios/Details/5

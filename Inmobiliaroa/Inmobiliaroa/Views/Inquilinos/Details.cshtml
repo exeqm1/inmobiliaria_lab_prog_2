@@ -54,9 +54,12 @@
                     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-1">
                         <i class="bi bi-pencil me-1"></i>Editar
                     </a>
-                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">
-                        <i class="bi bi-trash me-1"></i>Dar de baja
-                    </a>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">
+                            <i class="bi bi-trash me-1"></i>Dar de baja
+                        </a>
+                    }
                 </div>
             </div>
         </div>

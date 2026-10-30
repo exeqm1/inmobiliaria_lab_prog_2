@@ -6,6 +6,8 @@ namespace Inmobiliaria.Repositorios.Interfaces
     {
         List<Usuario> ObtenerTodos();
 
+        PaginacionResultado<Usuario> ObtenerPaginado(int pagina = 1, int tamanio = 10, string? busqueda = null);
+
         Usuario? ObtenerPorId(int id);
 
         Usuario? ObtenerPorEmail(string email);

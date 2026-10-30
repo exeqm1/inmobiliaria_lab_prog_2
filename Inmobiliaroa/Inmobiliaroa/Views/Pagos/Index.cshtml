@@ -58,7 +58,11 @@
                     <th scope="col" style="width: 160px;">Fecha</th>
                     <th scope="col">Concepto</th>
                     <th scope="col" class="text-end" style="width: 130px;">Importe</th>
-                    <th scope="col">Registrado por</th>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <th scope="col">Registrado por</th>
+                        <th scope="col">Anulado por</th>
+                    }
                     <th scope="col" class="text-center" style="width: 110px;">Estado</th>
                     <th scope="col" class="text-end" style="width: 120px;">Acciones</th>
                 </tr>
@@ -73,7 +77,11 @@
                             <td>@pago.FechaPago.ToString("dd/MM/yyyy HH:mm")</td>
                             <td>@pago.Concepto</td>
                             <td class="text-end @(pago.Anulado ? "text-decoration-line-through" : "")">$@pago.Importe.ToString("N2")</td>
-                            <td>@pago.UsuarioCreador?.Nombre @pago.UsuarioCreador?.Apellido</td>
+                            @if (User.IsInRole("Administrador"))
+                            {
+                                <td>@pago.UsuarioCreador?.Nombre @pago.UsuarioCreador?.Apellido</td>
+                                <td>@(pago.UsuarioAnulador != null ? $"{pago.UsuarioAnulador.Nombre} {pago.UsuarioAnulador.Apellido}" : "—")</td>
+                            }
                             <td class="text-center">
                                 @if (pago.Anulado)
                                 {
@@ -87,6 +95,9 @@
                             <td class="text-end">
                                 @if (!pago.Anulado)
                                 {
+                                    <a asp-action="Edit" asp-route-id="@pago.Id" class="btn btn-sm btn-outline-primary me-1" title="Editar concepto">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
                                     <form asp-action="Anular" method="post" class="d-inline">
                                         <input type="hidden" name="id" value="@pago.Id" />
                                         <input type="hidden" name="reservaId" value="@Model.Reserva.Id" />
@@ -103,7 +114,7 @@
                 else
                 {
                     <tr>
-                        <td colspan="7" class="text-center py-4 text-muted">
+                        <td colspan="@(User.IsInRole("Administrador") ? 8 : 6)" class="text-center py-4 text-muted">
                             <i class="bi bi-inbox fs-3 d-block mb-2"></i>
                             No hay pagos registrados para esta reserva.
                         </td>

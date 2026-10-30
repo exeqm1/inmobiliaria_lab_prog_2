@@ -39,7 +39,20 @@
 
                     <div class="alert alert-warning">
                         <i class="bi bi-cash-coin me-1"></i>
-                        Multa calculada (50% de los días no usados): <strong>$@Model.MultaEstimada.ToString("N2")</strong>
+                        Multa calculada: <strong>$@Model.MultaEstimada.ToString("N2")</strong>
+                        <div class="small mt-1">
+                            Si se cumplió menos de la mitad del plazo original se cobra el 50% de los días restantes;
+                            en caso contrario, el 25%.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Concepto" class="form-label fw-bold"></label>
+                        <input asp-for="Concepto" class="form-control" />
+                        <span asp-validation-for="Concepto" class="text-danger small"></span>
+                        <div class="form-text">
+                            El pago se registra automáticamente en la reserva al confirmar. Sin el pago de la multa no se puede finalizar el alquiler.
+                        </div>
                     </div>
 
                     <div class="d-flex justify-content-between pt-2 border-top">
