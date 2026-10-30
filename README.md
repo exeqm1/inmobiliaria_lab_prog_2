@@ -2,7 +2,7 @@
 
 # Sistema de Gestión Inmobiliaria - Reservas Temporales
 
-> Aplicación web desarrollada en ASP.NET Core MVC para la gestión de alquileres temporarios, propietarios, inquilinos e inmuebles[cite: 1].
+> Aplicación web desarrollada en ASP.NET Core MVC para la gestión de alquileres temporarios, propietarios, inquilinos e inmuebles
 
 ---
 
