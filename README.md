@@ -10,7 +10,7 @@
 
 ---
 
-## 🔐 Credenciales de Acceso (Usuarios de Prueba)
+## Credenciales de Acceso (Usuarios de Prueba)
 
 El sistema cuenta con autenticación basada en cookies y roles (*Administrador* y *Empleado*), con contraseñas encriptadas mediante PBKDF2 (SHA-256 con 100.000 iteraciones).
 
@@ -25,7 +25,7 @@ Para ingresar y evaluar el sistema, se incluyen las siguientes cuentas iniciales
 
 ---
 
-## 📐 Modelado y Diseño del Sistema
+## Modelado y Diseño del Sistema
 
 A continuación se presentan los esquemas y diagramas correspondientes a la aplicación según la narrativa y reglas de negocio del sistema:
 
@@ -47,7 +47,7 @@ Representa el modelo orientado a objetos en memoria (C#), con propiedades calcul
 
 ---
 
-## 🗄️ Esquema de Entidades (MySQL)
+## Esquema de Entidades (MySQL)
 
 ```
 PROPIETARIOS ||--o{ INMUEBLES : posee
@@ -62,7 +62,7 @@ USUARIOS ||--o{ PAGOS : registra / anula
 
 ---
 
-## 🚀 Instrucciones para Levantar la Base de Datos
+## Instrucciones para Levantar la Base de Datos
 
 Para inicializar la base de datos a partir del script SQL provisto en este repositorio, sigue estos pasos:
 
