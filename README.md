@@ -1,8 +1,6 @@
-﻿# inmobiliaria_lab_prog_2
-
 # Sistema de Gestión Inmobiliaria - Reservas Temporales
 
-> Aplicación web desarrollada en ASP.NET Core MVC para la gestión de alquileres temporarios, propietarios, inquilinos e inmuebles
+> Aplicación web desarrollada en ASP.NET Core (.NET 10) MVC con MySQL para la gestión de alquileres temporarios, propietarios, inquilinos, inmuebles, reservas y pagos con doble auditoría.
 
 ---
 
@@ -12,110 +10,55 @@
 
 ---
 
-##  Modelado de Datos
+## 📐 Modelado y Diseño del Sistema
 
-A continuación se presenta el esquema del modelo de datos correspondiente a la aplicación según la narrativa del sistema
+A continuación se presentan los esquemas y diagramas correspondientes a la aplicación según la narrativa y reglas de negocio del sistema:
 
-### Diagrama Entidad-Relación (DER)
+### 1. Diagrama Entidad-Relación (DER)
+Representa la estructura física y lógica de la base de datos relacional MySQL, con notación Crow's Foot estricta.
 
-    PROPIETARIO ||--o{ INMUEBLE : posee
-    TIPO_INMUEBLE ||--o{ INMUEBLE : clasifica
-    INQUILINO ||--o{ RESERVA : solicita
-    INMUEBLE ||--o{ RESERVA : incluye
-    RESERVA ||--o{ PAGO : genera
-    USUARIO ||--o{ RESERVA : gestiona
-    USUARIO ||--o{ PAGO : registra
+![Diagrama Entidad-Relación](docs/diagrama-er.png)
 
-    PROPIETARIO {
-        int id PK
-        string dni
-        string nombre
-        string apellido
-        string telefono
-        string email
-        bool estado
-    }
+*Archivos fuente editables disponibles en [`docs/diagrama-er.drawio`](docs/diagrama-er.drawio) y [`docs/diagrama-er.mmd`](docs/diagrama-er.mmd).*
 
-    INQUILINO {
-        int id PK
-        string dni
-        string nombre
-        string apellido
-        string telefono
-        string email
-        bool estado
-    }
+---
 
-    TIPO_INMUEBLE {
-        int id PK
-        string descripcion
-    }
+### 2. Diagrama de Clases UML (Dominio Enriquecido)
+Representa el modelo orientado a objetos en memoria (C#), con propiedades calculadas, métodos de dominio (`CalcularMulta`, `SaldoPendiente`, `TotalPagado`, `CantidadDias`), tipos de C#, navegabilidad y multiplicidades de asociación.
 
-    INMUEBLE {
-        int id PK
-        string direccion
-        int cupo
-        int tipo_id FK
-        string coordenadas
-        decimal precio_dia
-        int porcentaje_reserva
-        bool disponible
-        int propietario_id FK
-        bool estado
-    }
+![Diagrama de Clases UML](docs/diagrama-clases.png)
 
-    RESERVA {
-        int id PK
-        int inmueble_id FK
-        int inquilino_id FK
-        date fecha_inicio
-        date fecha_fin
-        decimal monto_diario
-        date fecha_fin_efectiva
-        decimal multa
-        int usuario_creador_id FK
-        int usuario_finalizador_id FK
-        bool estado
-    }
+*Archivos fuente editables disponibles en [`docs/diagrama-clases.drawio`](docs/diagrama-clases.drawio), [`docs/diagrama-clases.puml`](docs/diagrama-clases.puml) y [`docs/diagrama-clases.mmd`](docs/diagrama-clases.mmd).*
 
-    PAGO {
-        int id PK
-        int reserva_id FK
-        string concepto
-        datetime fecha_pago
-        decimal importe
-        int usuario_creador_id FK
-        int usuario_anulador_id FK
-        bool anulado
-    }
+---
 
-    USUARIO {
-        int id PK
-        string nombre
-        string apellido
-        string email
-        string password
-        string rol
-        string avatar
-        bool estado
-    }
+## 🗄️ Esquema de Entidades (MySQL)
 
-### Instrucciones para Levantar la Base de Datos
+```
+PROPIETARIOS ||--o{ INMUEBLES : posee
+TIPOS_INMUEBLE ||--o{ INMUEBLES : clasifica
+INQUILINOS ||--o{ RESERVAS : solicita
+INMUEBLES ||--o{ RESERVAS : incluye
+INMUEBLES ||--o{ FOTOS_INMUEBLE : contiene
+RESERVAS ||--o{ PAGOS : genera
+USUARIOS ||--o{ RESERVAS : gestiona (creador / finalizador)
+USUARIOS ||--o{ PAGOS : registra / anula
+```
+
+---
+
+## 🚀 Instrucciones para Levantar la Base de Datos
 
 Para inicializar la base de datos a partir del script SQL provisto en este repositorio, sigue estos pasos:
 
-Abrir el gestor de base de datos:
+1. **Abrir el gestor de base de datos:**
+   Inicia tu gestor preferido (MySQL Workbench, phpMyAdmin, DBeaver o la consola de MySQL).
 
-Inicia tu gestor preferido (MySQL Workbench, phpMyAdmin, DBeaver o la consola de MySQL).
+2. **Cargar el script:**
+   Abre el archivo `database.sql` ubicado en la raíz del repositorio.
 
-Cargar el script:
+3. **Ejecutar las sentencias:**
+   Ejecuta el script completo. La instrucción `CREATE DATABASE IF NOT EXISTS inmobiliaria_db;` creará el esquema y generará las tablas correspondientes junto con las claves foráneas y los datos iniciales de prueba.
 
-Abre el archivo database.sql ubicado en la raíz del repositorio.
-
-Ejecutar las sentencias:
-
-Ejecuta el script completo. La instrucción CREATE DATABASE IF NOT EXISTS inmobiliaria_db; creará el esquema y generará las tablas correspondientes junto con las claves foráneas y los datos iniciales de prueba[cite: 1].
-
-Verificación:
-
-Comprueba que la base de datos inmobiliaria_db contenga las tablas creadas y listas para operar con la aplicación.
+4. **Verificación:**
+   Comprueba que la base de datos `inmobiliaria_db` contenga las tablas creadas y listas para operar con la aplicación.

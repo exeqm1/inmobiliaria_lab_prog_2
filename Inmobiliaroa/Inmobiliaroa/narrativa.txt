@@ -1,0 +1,112 @@
+El sistema trata de la informatización de la gestión de alquileres
+temporarios de propiedades inmuebles que realiza una agencia
+inmobiliaria.
+Entidades:
+● Propietario. Es el dueño de uno o varios inmuebles.
+● Inmueble. Son las propiedades que se dan en alquiler a los
+inquilinos, a través de una reserva. Tienen una imagen de portada y
+otras varias del inmueble.
+● Inquilino. Es quien reserva el alquiler de un inmueble.
+● Reserva. Una reserva lleva un inquilino, un inmueble, un monto por
+día y fechas desde y hasta.
+● Pago. Registro de las transacciones económicas asociadas a una
+reserva (puede ser una seña inicial, el pago total de la estancia,
+etc).
+● Usuario. El sistema prevé acceso con email y contraseña. Existen
+dos roles: administrador y empleado. Solo los administradores
+pueden eliminar entidades. Solo los administradores pueden
+gestionar a otros usuarios. Los empleados pueden manipular su
+propio perfil.
+Funcionalidades:
+● Los propietarios de los inmuebles los ofrecen a la agencia para que
+ésta les busque inquilinos y hacer una reserva de alquiler por un
+tiempo determinado.
+● Se sabe que un propietario es dueño de uno o varios inmuebles.
+Cada Inmueble será propiedad de un único propietario.
+● Un inquilino puede llegar a participar de varias reservas de alquiler,
+pero cada inquilino es único responsable de su reserva.
+● Así mismo, cada reserva de alquiler tiene asociada un solo
+inmueble. Aunque a lo largo del tiempo ese inmueble aparece en
+otras reservas de alquiler no vigentes.
+● Cada reserva de alquiler tiene asociados pagos con información
+sobre: el concepto de pago, fecha de pago e importe.
+● Cuando un propietario entrega un inmueble, la agencia le pide la
+dirección, cupo (cantidad máxima de personas), tipo (casa,
+departamento, monoambiente, loft, etc.), coordenadas y precio por
+día del inmueble.
+● Se debe poder administrar (ABM) los tipos de los inmuebles.
+● El propietario puede solicitar que se suspenda temporalmente la
+oferta de uno de sus inmuebles. Esto hará que dicho inmueble no
+aparezca en los listados de inmuebles para alquilar. No afecta a los
+alquileres ya creados.
+● Cuando el inquilino viene a alquilar un inmueble se lo entrevista
+solicitando sus datos personales. ABM inquilino. DNI, nombre
+completo y datos de contacto.
+● Luego expresa las características del inmueble que busca y las
+fechas para alquilar. La agencia lleva a cabo un método para
+búsqueda de inmuebles que no estén ocupados en esas fechas. Si
+encuentra algunos adecuados, se entrega una lista de inmuebles. Si
+al nuevo inquilino le interesa algún inmueble se crea la reserva de
+alquiler.
+● Para las reservas, se deben registrar la fecha de inicio y fecha de
+finalización del mismo (se deben controlar las fechas), el monto de
+alquiler diario y un vínculo entre la propiedad inmueble y el
+inquilino. Se debe volver a verificar que el inmueble no esté
+ocupado en esas fechas por otra reserva.
+● Los inmuebles establecen el porcentaje de alquiler que se debe
+pagar al momento de realizar la reserva.
+● Cuando el inquilino realiza pagos del alquiler, quedará registrado el
+concepto de pago, la fecha en la que se realizó el pago y el importe.
+En los pagos, al editar, solo se puede editar el concepto, no el
+monto o fecha. La eliminación debe ser un cambio de estado, es
+decir que se siguen mostrando pero especificando que el pago está
+anulado.
+● El inquilino puede terminar antes la reserva si lo desea, pero
+pagando una multa. Esta fecha debe quedar registrada en el
+sistema. En caso de terminar el alquiler, se debe registrar la fecha
+de cuándo se hará efectiva la terminación y calcular la multa. Si se
+cumplió menos de la mitad del tiempo original de alquiler, deberá
+pagar el 50% restante de alquiler. Caso contrario, sólo 25%. El
+sistema debe informar el valor de la multa y cargar dicho monto en
+los “pagos” de la reserva en la misma pantalla. Si el inquilino no
+paga en el momento, no puede finalizarse. Cabe mencionar que no
+se debería perder la fecha de finalización original. Esto no solo evita
+perder información, si no que permite recrear el cálculo de la multa.
+En ningún caso se devolverá dinero.
+● El sistema debe permitir fácilmente renovar/extender una reserva
+de alquiler. No se debe modificar la reserva inicial, sino que se
+generará un nuevo alquiler, con un nuevo monto y fechas, pero con
+el mismo inquilino e inmueble.
+● El sistema debe contar con acceso por usuario y contraseña. Existen
+dos roles: empleado y administrador. Los administradores pueden
+eliminar entidades y gestionar a otros usuarios. Los empleados solo
+pueden manipular su propio perfil (cambiar datos personales,
+contraseña y avatar). Se debe registrar qué usuario creó una
+reserva y, en caso que corresponda, quien la terminó. Similar para
+pagos, quién lo creó y, en caso que corresponda, quien lo anuló.
+Esta información de auditoría sólo es visible para administradores y
+en una vista de detalles de la entidad correspondiente.
+Informes:
+● Listar todos los inmuebles y su dueño, que estén en el sistema.
+Permitir filtrar por disponibilidad (no de fechas, sino de la propiedad
+“Estado” o “Disponible”).
+● Listar todos los inmuebles que le correspondan a un propietario
+específico.
+● Listar los inmuebles más reservados en los últimos 365 días.
+● Listar los inmuebles sin reservas en los últimos X días (30, 60,
+etc.).
+● Listar todos las reservas de alquiler que se encuentren vigentes (por
+fecha desde y hasta).
+● Listar todos las reservas que terminen en X días (permitir elegir o
+especificar plazo).
+● Listar los pagos realizados para una reserva en particular. Permitir
+cargar un nuevo pago a esa reserva desde la pantalla del listado.
+● Dadas dos fechas posibles de una reserva (inicio y fin), listar todos
+los inmuebles que no estén ocupados en alguna reserva entre esas
+fechas.
+Otros requerimientos:
+● Los listados deben contar con paginado por servidor.
+● Las búsquedas deben ser resueltas en el servidor.
+● La selección de valores tipo desplegable debe ser realizada con
+algún filtro o búsqueda (en el servidor) para evitar traer todos los
+valores disponibles.

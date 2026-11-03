@@ -1,0 +1,241 @@
+<mxfile host="app.diagrams.net" agent="opencode" compressed="false">
+  <diagram id="er-inmobiliaria" name="ER - Inmobiliaria" background="#F8FAFC">
+    <mxGraphModel dx="4821" dy="2621" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" background="#F8FAFC" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Propietarios" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;rounded=1;container=1;fillColor=#1E293B;strokeColor=#334155;fontColor=#FFFFFF;fontSize=12;fontFamily=Helvetica;strokeWidth=1.5;arcSize=6;shadow=0;" value="Propietarios" vertex="1">
+          <mxGeometry height="212" width="300" x="240" y="71" as="geometry" />
+        </mxCell>
+        <mxCell id="Propietarios_f0" parent="Propietarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;id&lt;/b&gt; · INT · &lt;font color=&quot;#d79b00&quot;&gt;&lt;b&gt;[PK]&lt;/b&gt;&lt;/font&gt; · &lt;font color=&quot;#999999&quot;&gt;AUTO_INCREMENT&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="300" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Propietarios_f1" parent="Propietarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;dni&lt;/b&gt; · VARCHAR(20) · &lt;font color=&quot;#6c8ebf&quot;&gt;&lt;b&gt;[UQ]&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="300" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="Propietarios_f2" parent="Propietarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;nombre&lt;/b&gt; · VARCHAR(100)" vertex="1">
+          <mxGeometry height="26" width="300" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Propietarios_f3" parent="Propietarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;apellido&lt;/b&gt; · VARCHAR(100)" vertex="1">
+          <mxGeometry height="26" width="300" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="Propietarios_f4" parent="Propietarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;telefono&lt;/b&gt; · VARCHAR(50)" vertex="1">
+          <mxGeometry height="26" width="300" y="134" as="geometry" />
+        </mxCell>
+        <mxCell id="Propietarios_f5" parent="Propietarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;email&lt;/b&gt; · VARCHAR(100) · &lt;font color=&quot;#6c8ebf&quot;&gt;&lt;b&gt;[UQ]&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="300" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Propietarios_f6" parent="Propietarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;estado&lt;/b&gt; · BIT · &lt;font color=&quot;#999999&quot;&gt;def 1&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="300" y="186" as="geometry" />
+        </mxCell>
+        <mxCell id="Inquilinos" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;rounded=1;container=1;fillColor=#1E293B;strokeColor=#334155;fontColor=#FFFFFF;fontSize=12;fontFamily=Helvetica;strokeWidth=1.5;arcSize=6;shadow=0;" value="Inquilinos" vertex="1">
+          <mxGeometry height="212" width="300" x="240" y="501" as="geometry" />
+        </mxCell>
+        <mxCell id="Inquilinos_f0" parent="Inquilinos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;id&lt;/b&gt; · INT · &lt;font color=&quot;#d79b00&quot;&gt;&lt;b&gt;[PK]&lt;/b&gt;&lt;/font&gt; · &lt;font color=&quot;#999999&quot;&gt;AUTO_INCREMENT&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="300" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Inquilinos_f1" parent="Inquilinos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;dni&lt;/b&gt; · VARCHAR(20) · &lt;font color=&quot;#6c8ebf&quot;&gt;&lt;b&gt;[UQ]&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="300" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="Inquilinos_f2" parent="Inquilinos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;nombre&lt;/b&gt; · VARCHAR(100)" vertex="1">
+          <mxGeometry height="26" width="300" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Inquilinos_f3" parent="Inquilinos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;apellido&lt;/b&gt; · VARCHAR(100)" vertex="1">
+          <mxGeometry height="26" width="300" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="Inquilinos_f4" parent="Inquilinos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;telefono&lt;/b&gt; · VARCHAR(50)" vertex="1">
+          <mxGeometry height="26" width="300" y="134" as="geometry" />
+        </mxCell>
+        <mxCell id="Inquilinos_f5" parent="Inquilinos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;email&lt;/b&gt; · VARCHAR(100) · &lt;font color=&quot;#6c8ebf&quot;&gt;&lt;b&gt;[UQ]&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="300" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Inquilinos_f6" parent="Inquilinos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;estado&lt;/b&gt; · BIT · &lt;font color=&quot;#999999&quot;&gt;def 1&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="300" y="186" as="geometry" />
+        </mxCell>
+        <mxCell id="Tipos_Inmueble" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;rounded=1;container=1;fillColor=#1E293B;strokeColor=#334155;fontColor=#FFFFFF;fontSize=12;fontFamily=Helvetica;strokeWidth=1.5;arcSize=6;shadow=0;" value="Tipos_Inmueble" vertex="1">
+          <mxGeometry height="108" width="300" x="240" y="341" as="geometry" />
+        </mxCell>
+        <mxCell id="Tipos_Inmueble_f0" parent="Tipos_Inmueble" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;id&lt;/b&gt; · INT · &lt;font color=&quot;#d79b00&quot;&gt;&lt;b&gt;[PK]&lt;/b&gt;&lt;/font&gt; · &lt;font color=&quot;#999999&quot;&gt;AUTO_INCREMENT&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="300" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Tipos_Inmueble_f1" parent="Tipos_Inmueble" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;descripcion&lt;/b&gt; · VARCHAR(100)" vertex="1">
+          <mxGeometry height="26" width="300" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="Tipos_Inmueble_f2" parent="Tipos_Inmueble" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;estado&lt;/b&gt; · BIT · &lt;font color=&quot;#999999&quot;&gt;def 1&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="300" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Usuarios" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;rounded=1;container=1;fillColor=#1E293B;strokeColor=#334155;fontColor=#FFFFFF;fontSize=12;fontFamily=Helvetica;strokeWidth=1.5;arcSize=6;shadow=0;" value="Usuarios" vertex="1">
+          <mxGeometry height="238" width="340" x="680" y="891" as="geometry" />
+        </mxCell>
+        <mxCell id="Usuarios_f0" parent="Usuarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;id&lt;/b&gt; · INT · &lt;font color=&quot;#d79b00&quot;&gt;&lt;b&gt;[PK]&lt;/b&gt;&lt;/font&gt; · &lt;font color=&quot;#999999&quot;&gt;AUTO_INCREMENT&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Usuarios_f1" parent="Usuarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;nombre&lt;/b&gt; · VARCHAR(100)" vertex="1">
+          <mxGeometry height="26" width="340" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="Usuarios_f2" parent="Usuarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;apellido&lt;/b&gt; · VARCHAR(100)" vertex="1">
+          <mxGeometry height="26" width="340" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Usuarios_f3" parent="Usuarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;email&lt;/b&gt; · VARCHAR(100) · &lt;font color=&quot;#6c8ebf&quot;&gt;&lt;b&gt;[UQ]&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="Usuarios_f4" parent="Usuarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;password&lt;/b&gt; · VARCHAR(255)" vertex="1">
+          <mxGeometry height="26" width="340" y="134" as="geometry" />
+        </mxCell>
+        <mxCell id="Usuarios_f5" parent="Usuarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;rol&lt;/b&gt; · VARCHAR(50)" vertex="1">
+          <mxGeometry height="26" width="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Usuarios_f6" parent="Usuarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;avatar&lt;/b&gt; · VARCHAR(255) · &lt;font color=&quot;#999999&quot;&gt;NULL&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="186" as="geometry" />
+        </mxCell>
+        <mxCell id="Usuarios_f7" parent="Usuarios" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;estado&lt;/b&gt; · BIT · &lt;font color=&quot;#999999&quot;&gt;def 1&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="212" as="geometry" />
+        </mxCell>
+        <mxCell id="Inmuebles" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;rounded=1;container=1;fillColor=#1E293B;strokeColor=#334155;fontColor=#FFFFFF;fontSize=12;fontFamily=Helvetica;strokeWidth=1.5;arcSize=6;shadow=0;" value="Inmuebles" vertex="1">
+          <mxGeometry height="316" width="340" x="680" y="71" as="geometry" />
+        </mxCell>
+        <mxCell id="Inmuebles_f0" parent="Inmuebles" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;id&lt;/b&gt; · INT · &lt;font color=&quot;#d79b00&quot;&gt;&lt;b&gt;[PK]&lt;/b&gt;&lt;/font&gt; · &lt;font color=&quot;#999999&quot;&gt;AUTO_INCREMENT&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Inmuebles_f1" parent="Inmuebles" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;direccion&lt;/b&gt; · VARCHAR(200)" vertex="1">
+          <mxGeometry height="26" width="340" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="Inmuebles_f2" parent="Inmuebles" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;cupo&lt;/b&gt; · INT" vertex="1">
+          <mxGeometry height="26" width="340" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Inmuebles_f3" parent="Inmuebles" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;tipo_id&lt;/b&gt; · INT · &lt;font color=&quot;#b85450&quot;&gt;&lt;b&gt;[FK]&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="Inmuebles_f4" parent="Inmuebles" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;coordenadas&lt;/b&gt; · VARCHAR(100) · &lt;font color=&quot;#999999&quot;&gt;NULL&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="134" as="geometry" />
+        </mxCell>
+        <mxCell id="Inmuebles_f5" parent="Inmuebles" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;precio_dia&lt;/b&gt; · DECIMAL(12,2)" vertex="1">
+          <mxGeometry height="26" width="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Inmuebles_f6" parent="Inmuebles" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;porcentaje_reserva&lt;/b&gt; · INT" vertex="1">
+          <mxGeometry height="26" width="340" y="186" as="geometry" />
+        </mxCell>
+        <mxCell id="Inmuebles_f7" parent="Inmuebles" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;portada&lt;/b&gt; · VARCHAR(255) · &lt;font color=&quot;#999999&quot;&gt;NULL&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="212" as="geometry" />
+        </mxCell>
+        <mxCell id="Inmuebles_f8" parent="Inmuebles" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;disponible&lt;/b&gt; · BIT · &lt;font color=&quot;#999999&quot;&gt;def 1&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="238" as="geometry" />
+        </mxCell>
+        <mxCell id="Inmuebles_f9" parent="Inmuebles" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;propietario_id&lt;/b&gt; · INT · &lt;font color=&quot;#b85450&quot;&gt;&lt;b&gt;[FK]&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="264" as="geometry" />
+        </mxCell>
+        <mxCell id="Inmuebles_f10" parent="Inmuebles" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;estado&lt;/b&gt; · BIT · &lt;font color=&quot;#999999&quot;&gt;def 1&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="Fotos_Inmueble" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;rounded=1;container=1;fillColor=#1E293B;strokeColor=#334155;fontColor=#FFFFFF;fontSize=12;fontFamily=Helvetica;strokeWidth=1.5;arcSize=6;shadow=0;" value="Fotos_Inmueble" vertex="1">
+          <mxGeometry height="108" width="320" x="1160" y="71" as="geometry" />
+        </mxCell>
+        <mxCell id="Fotos_Inmueble_f0" parent="Fotos_Inmueble" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;id&lt;/b&gt; · INT · &lt;font color=&quot;#d79b00&quot;&gt;&lt;b&gt;[PK]&lt;/b&gt;&lt;/font&gt; · &lt;font color=&quot;#999999&quot;&gt;AUTO_INCREMENT&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="320" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Fotos_Inmueble_f1" parent="Fotos_Inmueble" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;inmueble_id&lt;/b&gt; · INT · &lt;font color=&quot;#b85450&quot;&gt;&lt;b&gt;[FK]&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="320" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="Fotos_Inmueble_f2" parent="Fotos_Inmueble" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;url_foto&lt;/b&gt; · VARCHAR(255)" vertex="1">
+          <mxGeometry height="26" width="320" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservas" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;rounded=1;container=1;fillColor=#1E293B;strokeColor=#334155;fontColor=#FFFFFF;fontSize=12;fontFamily=Helvetica;strokeWidth=1.5;arcSize=6;shadow=0;" value="Reservas" vertex="1">
+          <mxGeometry height="316" width="340" x="680" y="461" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservas_f0" parent="Reservas" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;id&lt;/b&gt; · INT · &lt;font color=&quot;#d79b00&quot;&gt;&lt;b&gt;[PK]&lt;/b&gt;&lt;/font&gt; · &lt;font color=&quot;#999999&quot;&gt;AUTO_INCREMENT&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservas_f1" parent="Reservas" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;inmueble_id&lt;/b&gt; · INT · &lt;font color=&quot;#b85450&quot;&gt;&lt;b&gt;[FK]&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservas_f2" parent="Reservas" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;inquilino_id&lt;/b&gt; · INT · &lt;font color=&quot;#b85450&quot;&gt;&lt;b&gt;[FK]&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservas_f3" parent="Reservas" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;fecha_inicio&lt;/b&gt; · DATE" vertex="1">
+          <mxGeometry height="26" width="340" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservas_f4" parent="Reservas" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;fecha_fin&lt;/b&gt; · DATE" vertex="1">
+          <mxGeometry height="26" width="340" y="134" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservas_f5" parent="Reservas" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;monto_diario&lt;/b&gt; · DECIMAL(12,2)" vertex="1">
+          <mxGeometry height="26" width="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservas_f6" parent="Reservas" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;fecha_fin_efectiva&lt;/b&gt; · DATE · &lt;font color=&quot;#999999&quot;&gt;NULL&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="186" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservas_f7" parent="Reservas" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;multa&lt;/b&gt; · DECIMAL(12,2) · &lt;font color=&quot;#999999&quot;&gt;NULL&lt;/font&gt; · &lt;font color=&quot;#999999&quot;&gt;def 0&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="212" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservas_f8" parent="Reservas" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;usuario_creador_id&lt;/b&gt; · INT · &lt;font color=&quot;#b85450&quot;&gt;&lt;b&gt;[FK]&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="238" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservas_f9" parent="Reservas" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;usuario_finalizador_id&lt;/b&gt; · INT · &lt;font color=&quot;#b85450&quot;&gt;&lt;b&gt;[FK]&lt;/b&gt;&lt;/font&gt; · &lt;font color=&quot;#999999&quot;&gt;NULL&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="264" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservas_f10" parent="Reservas" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;estado&lt;/b&gt; · BIT · &lt;font color=&quot;#999999&quot;&gt;def 1&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="340" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="Pagos" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;rounded=1;container=1;fillColor=#1E293B;strokeColor=#334155;fontColor=#FFFFFF;fontSize=12;fontFamily=Helvetica;strokeWidth=1.5;arcSize=6;shadow=0;" value="Pagos" vertex="1">
+          <mxGeometry height="238" width="320" x="1160" y="461" as="geometry" />
+        </mxCell>
+        <mxCell id="Pagos_f0" parent="Pagos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;id&lt;/b&gt; · INT · &lt;font color=&quot;#d79b00&quot;&gt;&lt;b&gt;[PK]&lt;/b&gt;&lt;/font&gt; · &lt;font color=&quot;#999999&quot;&gt;AUTO_INCREMENT&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="320" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Pagos_f1" parent="Pagos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;reserva_id&lt;/b&gt; · INT · &lt;font color=&quot;#b85450&quot;&gt;&lt;b&gt;[FK]&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="320" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="Pagos_f2" parent="Pagos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;concepto&lt;/b&gt; · VARCHAR(150)" vertex="1">
+          <mxGeometry height="26" width="320" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Pagos_f3" parent="Pagos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;fecha_pago&lt;/b&gt; · DATETIME" vertex="1">
+          <mxGeometry height="26" width="320" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="Pagos_f4" parent="Pagos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;importe&lt;/b&gt; · DECIMAL(12,2)" vertex="1">
+          <mxGeometry height="26" width="320" y="134" as="geometry" />
+        </mxCell>
+        <mxCell id="Pagos_f5" parent="Pagos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;usuario_creador_id&lt;/b&gt; · INT · &lt;font color=&quot;#b85450&quot;&gt;&lt;b&gt;[FK]&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="320" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Pagos_f6" parent="Pagos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;usuario_anulador_id&lt;/b&gt; · INT · &lt;font color=&quot;#b85450&quot;&gt;&lt;b&gt;[FK]&lt;/b&gt;&lt;/font&gt; · &lt;font color=&quot;#999999&quot;&gt;NULL&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="320" y="186" as="geometry" />
+        </mxCell>
+        <mxCell id="Pagos_f7" parent="Pagos" style="text;html=1;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;fontFamily=Courier New;strokeColor=none;fillColor=#FFFFFF;fontColor=#1E293B;" value="&lt;b&gt;anulado&lt;/b&gt; · BIT · &lt;font color=&quot;#999999&quot;&gt;def 0&lt;/font&gt;" vertex="1">
+          <mxGeometry height="26" width="320" y="212" as="geometry" />
+        </mxCell>
+        <mxCell id="er_rel_1" edge="1" parent="1" source="Tipos_Inmueble" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;startSize=10;endSize=10;fontSize=10;strokeColor=#475569;endFill=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.72;strokeWidth=1.5;" target="Inmuebles" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="er_rel_2" edge="1" parent="1" source="Propietarios" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;startSize=10;endSize=10;fontSize=10;strokeColor=#475569;endFill=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;exitX=1.0;exitY=0.35;entryX=0.0;entryY=0.22;strokeWidth=1.5;" target="Inmuebles" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="er_rel_3" edge="1" parent="1" source="Inmuebles" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;startSize=10;endSize=10;fontSize=10;strokeColor=#475569;endFill=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;exitX=1.0;exitY=0.32;entryX=0.0;entryY=0.5;strokeWidth=1.5;" target="Fotos_Inmueble" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="er_rel_4" edge="1" parent="1" source="Inmuebles" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;startSize=10;endSize=10;fontSize=10;strokeColor=#475569;endFill=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;strokeWidth=1.5;" target="Reservas" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="er_rel_5" edge="1" parent="1" source="Inquilinos" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;startSize=10;endSize=10;fontSize=10;strokeColor=#475569;endFill=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.62;strokeWidth=1.5;" target="Reservas" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="er_rel_6" edge="1" parent="1" source="Reservas" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;startSize=10;endSize=10;fontSize=10;strokeColor=#475569;endFill=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;strokeWidth=1.5;" target="Pagos" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="er_rel_7" edge="1" parent="1" source="Usuarios" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;startSize=10;endSize=10;fontSize=10;strokeColor=#475569;endFill=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;exitX=0.3;exitY=0.0;entryX=0.3;entryY=1.0;strokeWidth=1.5;" target="Reservas" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="er_rel_8" edge="1" parent="1" source="Usuarios" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;startSize=10;endSize=10;fontSize=10;strokeColor=#475569;endFill=0;startArrow=ERzeroToOne;startFill=0;endArrow=ERzeroToMany;exitX=0.7;exitY=0.0;entryX=0.7;entryY=1.0;strokeWidth=1.5;" target="Reservas" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="er_rel_9" edge="1" parent="1" source="Usuarios" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;startSize=10;endSize=10;fontSize=10;strokeColor=#475569;endFill=0;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;exitX=1.0;exitY=0.3;entryX=0.3;entryY=1.0;strokeWidth=1.5;" target="Pagos" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="er_rel_10" edge="1" parent="1" source="Usuarios" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;startSize=10;endSize=10;fontSize=10;strokeColor=#475569;endFill=0;startArrow=ERzeroToOne;startFill=0;endArrow=ERzeroToMany;exitX=1.0;exitY=0.7;entryX=0.7;entryY=1.0;strokeWidth=1.5;" target="Pagos" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nota_er" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontSize=10;fontFamily=Helvetica;spacingLeft=8;spacingRight=8;spacingTop=6;fontColor=#334155;strokeWidth=1.5;arcSize=6;shadow=0;" value="&lt;b&gt;Índices&lt;/b&gt;&lt;br&gt;Propietarios: idx_propietario_dni (dni), idx_propietario_estado (estado)&lt;br&gt;Inquilinos: idx_inquilino_dni (dni), idx_inquilino_estado (estado)&lt;br&gt;Inmuebles: idx_inmueble_disp_estado (disponible, estado), idx_inmueble_propietario (propietario_id)&lt;br&gt;Reservas: idx_reserva_rango (inmueble_id, fecha_inicio, fecha_fin, estado)&lt;br&gt;Pagos: idx_pago_reserva (reserva_id, anulado)&lt;br&gt;&lt;br&gt;&lt;b&gt;Notas&lt;/b&gt;&lt;br&gt;password (BD) = PasswordHash (C#)&lt;br&gt;estado / anulado = baja lógica&lt;br&gt;NombreCompleto = atributo calculado, no columna&lt;br&gt;Fotos_Inmueble: única FK con ON DELETE CASCADE&lt;br&gt;Resto de FK: RESTRICT/NO ACTION&lt;br&gt;NULL = opcional; sin NULL = NOT NULL" vertex="1">
+          <mxGeometry height="330" width="430" x="1160" y="791" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

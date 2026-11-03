@@ -1,0 +1,91 @@
+%% Diagrama entidad-relación del sistema inmobiliario
+%% Generado a partir de database.sql
+erDiagram
+    accTitle: Modelo entidad-relación - Inmobiliaria
+    accDescr: Ocho entidades, claves y diez relaciones del sistema inmobiliario.
+
+    TIPOS_INMUEBLE ||--o{ INMUEBLES : ""
+    PROPIETARIOS ||--o{ INMUEBLES : ""
+    INMUEBLES ||--o{ FOTOS_INMUEBLE : ""
+    INMUEBLES ||--o{ RESERVAS : ""
+    INQUILINOS ||--o{ RESERVAS : ""
+    RESERVAS ||--o{ PAGOS : ""
+    USUARIOS ||--o{ RESERVAS : ""
+    USUARIOS |o--o{ RESERVAS : ""
+    USUARIOS ||--o{ PAGOS : ""
+    USUARIOS |o--o{ PAGOS : ""
+
+    PROPIETARIOS {
+        int id PK "INT AUTO_INCREMENT"
+        varchar dni UK "VARCHAR(20) NOT NULL"
+        varchar nombre "VARCHAR(100) NOT NULL"
+        varchar apellido "VARCHAR(100) NOT NULL"
+        varchar telefono "VARCHAR(50) NOT NULL"
+        varchar email UK "VARCHAR(100) NOT NULL"
+        bit estado "BIT NOT NULL DEFAULT 1"
+    }
+    INQUILINOS {
+        int id PK "INT AUTO_INCREMENT"
+        varchar dni UK "VARCHAR(20) NOT NULL"
+        varchar nombre "VARCHAR(100) NOT NULL"
+        varchar apellido "VARCHAR(100) NOT NULL"
+        varchar telefono "VARCHAR(50) NOT NULL"
+        varchar email UK "VARCHAR(100) NOT NULL"
+        bit estado "BIT NOT NULL DEFAULT 1"
+    }
+    TIPOS_INMUEBLE {
+        int id PK "INT AUTO_INCREMENT"
+        varchar descripcion "VARCHAR(100) NOT NULL"
+        bit estado "BIT NOT NULL DEFAULT 1"
+    }
+    USUARIOS {
+        int id PK "INT AUTO_INCREMENT"
+        varchar nombre "VARCHAR(100) NOT NULL"
+        varchar apellido "VARCHAR(100) NOT NULL"
+        varchar email UK "VARCHAR(100) NOT NULL"
+        varchar password "VARCHAR(255) NOT NULL"
+        varchar rol "VARCHAR(20) NOT NULL"
+        varchar avatar "VARCHAR(255) NULL"
+        bit estado "BIT NOT NULL DEFAULT 1"
+    }
+    INMUEBLES {
+        int id PK "INT AUTO_INCREMENT"
+        varchar direccion "VARCHAR(200) NOT NULL"
+        int cupo "INT NOT NULL"
+        int tipo_id FK "INT NOT NULL; FK -> Tipos_Inmueble.id"
+        varchar coordenadas "VARCHAR(100) NULL"
+        decimal precio_dia "DECIMAL(12,2) NOT NULL"
+        int porcentaje_reserva "INT NOT NULL"
+        varchar portada "VARCHAR(255) NULL"
+        bit disponible "BIT NOT NULL DEFAULT 1"
+        int propietario_id FK "INT NOT NULL; FK -> Propietarios.id"
+        bit estado "BIT NOT NULL DEFAULT 1"
+    }
+    FOTOS_INMUEBLE {
+        int id PK "INT AUTO_INCREMENT"
+        int inmueble_id FK "INT NOT NULL; FK -> Inmuebles.id"
+        varchar url_foto "VARCHAR(255) NOT NULL"
+    }
+    RESERVAS {
+        int id PK "INT AUTO_INCREMENT"
+        int inmueble_id FK "INT NOT NULL; FK -> Inmuebles.id"
+        int inquilino_id FK "INT NOT NULL; FK -> Inquilinos.id"
+        date fecha_inicio "DATE NOT NULL"
+        date fecha_fin "DATE NOT NULL"
+        decimal monto_diario "DECIMAL(12,2) NOT NULL"
+        date fecha_fin_efectiva "DATE NULL"
+        decimal multa "DECIMAL(12,2) NULL DEFAULT 0"
+        int usuario_creador_id FK "INT NOT NULL; FK -> Usuarios.id"
+        int usuario_finalizador_id FK "INT NULL; FK -> Usuarios.id"
+        bit estado "BIT NOT NULL DEFAULT 1"
+    }
+    PAGOS {
+        int id PK "INT AUTO_INCREMENT"
+        int reserva_id FK "INT NOT NULL; FK -> Reservas.id"
+        varchar concepto "VARCHAR(150) NOT NULL"
+        datetime fecha_pago "DATETIME NOT NULL"
+        decimal importe "DECIMAL(12,2) NOT NULL"
+        int usuario_creador_id FK "INT NOT NULL; FK -> Usuarios.id"
+        int usuario_anulador_id FK "INT NULL; FK -> Usuarios.id"
+        bit anulado "BIT NOT NULL DEFAULT 0"
+    }
