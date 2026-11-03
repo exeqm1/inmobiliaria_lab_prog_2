@@ -4,7 +4,7 @@
 
 ---
 
-## 👥 Integrantes del Grupo
+## Integrantes del Grupo
 
 * **Exequiel Muñoz** - *boschieze6@gmail.com* - [@exeqm1](https://github.com/eexeqm1)
 
